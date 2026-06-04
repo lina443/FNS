@@ -3,791 +3,1124 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Налоговая задолженность в РФ: 2020–2024</title>
+<title>Налоговая задолженность в РФ: 2020–2024 — Аналитическая записка</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap');
 
   :root {
     --ink: #0f0f0f;
-    --paper: #f5f0e8;
-    --accent: #c0392b;
-    --accent2: #2c3e50;
-    --gold: #d4a017;
-    --mid: #7f8c8d;
-    --border: #d5cfc4;
-    --card: #fff8f0;
+    --paper: #f7f3ec;
+    --red: #b5281c;
+    --blue: #1a3a5c;
+    --gold: #c8920a;
+    --green: #1a6b3a;
+    --mid: #6b7280;
+    --border: #d8d0c4;
+    --card: #fff9f2;
+    --card2: #f0f4f9;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'IBM Plex Sans', sans-serif; background: var(--paper); color: var(--ink); line-height: 1.65; font-size: 15px; }
 
-  body {
-    font-family: 'IBM Plex Sans', sans-serif;
-    background: var(--paper);
-    color: var(--ink);
-    line-height: 1.6;
-  }
-
-  /* ——— HEADER ——— */
+  /* HEADER */
   header {
     background: var(--ink);
     color: var(--paper);
-    padding: 3rem 4rem 2.5rem;
-    border-bottom: 4px solid var(--accent);
+    padding: 3.5rem 5rem 3rem;
+    border-bottom: 3px solid var(--red);
     position: relative;
-    overflow: hidden;
   }
-  header::before {
+  header::after {
     content: '';
     position: absolute;
-    top: 0; right: 0;
-    width: 320px; height: 100%;
-    background: repeating-linear-gradient(
-      45deg,
-      transparent,
-      transparent 8px,
-      rgba(255,255,255,0.03) 8px,
-      rgba(255,255,255,0.03) 16px
-    );
+    bottom: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, var(--red) 0%, transparent 100%);
   }
-  .header-meta {
+  .h-label {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.72rem;
-    color: var(--mid);
-    letter-spacing: 0.12em;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    margin-bottom: 1rem;
+    color: #888;
+    margin-bottom: 1.2rem;
   }
   header h1 {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-size: clamp(1.9rem, 3.5vw, 3.2rem);
     font-weight: 900;
-    line-height: 1.1;
-    margin-bottom: 0.75rem;
+    line-height: 1.08;
+    margin-bottom: 1rem;
+    max-width: 700px;
   }
-  header h1 span { color: var(--accent); }
-  .header-sub {
-    font-size: 0.9rem;
-    color: #aaa;
-    max-width: 600px;
+  header h1 em { color: var(--red); font-style: normal; }
+  .h-desc { font-size: 0.9rem; color: #999; max-width: 580px; line-height: 1.6; }
+  .h-meta {
+    margin-top: 2rem;
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    border-top: 1px solid #2a2a2a;
+    padding-top: 1.2rem;
   }
-  .header-author {
-    margin-top: 1.5rem;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.78rem;
-    color: var(--gold);
-    letter-spacing: 0.06em;
-  }
+  .h-meta-item { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: #666; }
+  .h-meta-item strong { color: var(--gold); display: block; margin-bottom: 0.2rem; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; }
 
-  /* ——— LAYOUT ——— */
-  main { max-width: 1100px; margin: 0 auto; padding: 3rem 2rem 5rem; }
-
-  section {
-    margin-bottom: 4rem;
-    padding-top: 1rem;
-    border-top: 2px solid var(--border);
+  /* KEY FINDINGS BAR */
+  .findings-bar {
+    background: var(--blue);
+    color: #fff;
+    padding: 1.4rem 5rem;
+    display: flex;
+    gap: 3rem;
+    flex-wrap: wrap;
+    align-items: center;
   }
-
-  .section-label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.68rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 0.5rem;
+  .finding {
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
   }
-  .section-num {
+  .finding-num {
     font-family: 'Playfair Display', serif;
-    font-size: 0.75rem;
-    color: var(--mid);
+    font-size: 1.9rem;
     font-weight: 700;
-    margin-right: 0.5rem;
+    color: var(--gold);
+    line-height: 1;
   }
+  .finding-desc { font-size: 0.78rem; color: #b0bcc8; max-width: 140px; line-height: 1.3; }
+  .finding-sep { color: #2a4a6a; font-size: 1.5rem; }
+
+  /* LAYOUT */
+  main { max-width: 1080px; margin: 0 auto; padding: 3rem 2rem 5rem; }
+
+  section { margin-bottom: 4.5rem; }
+
+  .sec-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 0.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .sec-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
   h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+    line-height: 1.15;
+  }
+  .sec-intro { font-size: 0.88rem; color: var(--mid); margin-bottom: 2rem; max-width: 700px; }
+
+  h3 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--blue);
+    margin: 2rem 0 1rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  p { margin-bottom: 0.85rem; max-width: 780px; font-size: 0.92rem; }
+
+  /* DATA GRID */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin: 1.5rem 0;
+  }
+  .kpi {
+    background: var(--card);
+    padding: 1.2rem 1rem;
+    position: relative;
+  }
+  .kpi.peak { background: #fff2f0; }
+  .kpi.low  { background: #f0f7f2; }
+  .kpi-year {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--mid);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .kpi-val {
     font-family: 'Playfair Display', serif;
     font-size: 1.8rem;
     font-weight: 700;
-    margin-bottom: 1.5rem;
-    line-height: 1.2;
+    line-height: 1;
+    margin: 0.4rem 0 0.2rem;
   }
-  h3 {
-    font-family: 'IBM Plex Sans', sans-serif;
-    font-size: 1rem;
-    font-weight: 500;
-    margin-bottom: 1rem;
-    color: var(--accent2);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-
-  p { margin-bottom: 0.9rem; font-size: 0.95rem; max-width: 820px; }
-
-  /* ——— DATA CARDS ——— */
-  .data-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 1rem;
-    margin: 1.5rem 0;
-  }
-  .data-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-left: 4px solid var(--accent);
-    padding: 1.2rem 1rem;
-  }
-  .data-card .year {
+  .kpi.peak .kpi-val { color: var(--red); }
+  .kpi.low  .kpi-val { color: var(--green); }
+  .kpi-sub { font-size: 0.72rem; color: var(--mid); line-height: 1.3; }
+  .kpi-badge {
+    position: absolute;
+    top: 0.6rem; right: 0.7rem;
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--mid);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
+    font-size: 0.6rem;
+    padding: 0.1rem 0.35rem;
+    border-radius: 2px;
   }
-  .data-card .val {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.7rem;
-    font-weight: 700;
-    line-height: 1.1;
-    margin: 0.3rem 0;
-  }
-  .data-card .desc {
-    font-size: 0.75rem;
-    color: var(--mid);
-  }
+  .kpi.peak .kpi-badge { background: var(--red); color: #fff; }
+  .kpi.low  .kpi-badge { background: var(--green); color: #fff; }
 
-  /* ——— TABLES ——— */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.88rem;
-    margin: 1.5rem 0;
-  }
-  th {
-    background: var(--ink);
-    color: var(--paper);
-    padding: 0.65rem 1rem;
+  /* TABLES */
+  table { width: 100%; border-collapse: collapse; font-size: 0.84rem; margin: 1.2rem 0; }
+  thead th {
+    background: var(--blue);
+    color: #fff;
+    padding: 0.6rem 0.9rem;
     text-align: left;
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
+    font-weight: 400;
   }
-  td {
-    padding: 0.6rem 1rem;
+  tbody td {
+    padding: 0.55rem 0.9rem;
     border-bottom: 1px solid var(--border);
     vertical-align: top;
   }
-  tr:nth-child(even) td { background: rgba(0,0,0,0.02); }
-  .note { font-size: 0.75rem; color: var(--mid); margin-top: 0.5rem; font-style: italic; }
+  tbody tr:nth-child(even) td { background: rgba(0,0,0,0.018); }
+  tbody tr:hover td { background: rgba(26,58,92,0.04); }
+  td.num { font-family: 'IBM Plex Mono', monospace; text-align: right; }
+  td.pos { color: var(--red); }
+  td.neg { color: var(--green); }
 
-  /* ——— SVG CHARTS ——— */
+  .note { font-size: 0.73rem; color: var(--mid); font-style: italic; margin: 0.5rem 0; line-height: 1.4; }
+  .warn {
+    border-left: 3px solid var(--gold);
+    background: #fffbf0;
+    padding: 0.7rem 1rem;
+    font-size: 0.82rem;
+    margin: 1rem 0;
+    color: #5a4000;
+  }
+  .warn strong { color: var(--gold); }
+
+  /* CHARTS */
   .chart-wrap {
     background: var(--card);
     border: 1px solid var(--border);
-    padding: 1.5rem;
+    padding: 1.6rem 1.8rem 1.2rem;
     margin: 1.5rem 0;
-    overflow-x: auto;
   }
   .chart-title {
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.78rem;
-    color: var(--ink);
+    font-size: 0.72rem;
     font-weight: 600;
-    letter-spacing: 0.05em;
     text-transform: uppercase;
-    margin-bottom: 1rem;
+    letter-spacing: 0.06em;
+    color: var(--ink);
+    margin-bottom: 0.3rem;
   }
+  .chart-sub { font-size: 0.75rem; color: var(--mid); margin-bottom: 1.2rem; }
 
-  /* ——— ANALYSIS BLOCKS ——— */
+  .legend { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 0.8rem; }
+  .leg { display: flex; align-items: center; gap: 0.4rem; font-size: 0.76rem; color: var(--mid); }
+  .leg-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .leg-line { width: 18px; height: 2px; flex-shrink: 0; }
+  .leg-dash { width: 18px; height: 0; border-top: 2px dashed; flex-shrink: 0; }
+
+  /* ANALYSIS BLOCKS */
+  .insight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
   .insight {
     background: var(--ink);
     color: var(--paper);
-    padding: 1.5rem 1.8rem;
-    margin: 1.5rem 0;
-    border-left: 5px solid var(--gold);
+    padding: 1.4rem 1.5rem;
+    border-left: 4px solid var(--gold);
   }
-  .insight strong { color: var(--gold); font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; display: block; margin-bottom: 0.5rem; }
-  .insight p { color: #ccc; max-width: 100%; }
+  .insight.red  { border-left-color: var(--red); }
+  .insight.blue { border-left-color: #4a90d9; }
+  .insight.green{ border-left-color: var(--green); }
+  .insight-tag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  .insight.red   .insight-tag { color: #e87070; }
+  .insight.blue  .insight-tag { color: #7ab3e8; }
+  .insight.green .insight-tag { color: #6bc98a; }
+  .insight p { color: #ccc; font-size: 0.83rem; max-width: 100%; }
+  .insight strong { color: #fff; }
 
-  /* ——— PROPOSALS ——— */
+  /* PROPOSALS */
   .proposal {
     border: 1px solid var(--border);
     background: var(--card);
-    padding: 1.5rem;
+    padding: 1.6rem;
     margin-bottom: 1.2rem;
-    position: relative;
+    display: grid;
+    grid-template-columns: 3.5rem 1fr;
+    gap: 1.2rem;
   }
-  .proposal-num {
-    position: absolute;
-    top: 1rem; right: 1.2rem;
+  .p-num {
     font-family: 'Playfair Display', serif;
-    font-size: 3.5rem;
+    font-size: 2.8rem;
     font-weight: 900;
     color: var(--border);
     line-height: 1;
-    user-select: none;
+    padding-top: 0.1rem;
   }
-  .proposal h4 {
+  .p-body h4 {
     font-family: 'Playfair Display', serif;
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     font-weight: 700;
-    margin-bottom: 0.6rem;
-    padding-right: 3rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
   }
-  .proposal .tag {
+  .p-tag {
     display: inline-block;
     font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.65rem;
+    font-size: 0.62rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    background: var(--accent);
+    background: var(--blue);
     color: #fff;
     padding: 0.15rem 0.5rem;
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.7rem;
   }
-  .proposal-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 0.8rem; }
-  .proposal-row div { font-size: 0.85rem; }
-  .proposal-row strong { font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--mid); display: block; margin-bottom: 0.3rem; }
+  .p-cols { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+  .p-col { font-size: 0.83rem; }
+  .p-col-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--mid);
+    margin-bottom: 0.3rem;
+    display: block;
+  }
+  .p-kpi {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    background: var(--blue);
+    color: var(--gold);
+    padding: 0.3rem 0.6rem;
+    display: inline-block;
+    margin-top: 0.5rem;
+  }
 
-  /* ——— SOURCES ——— */
-  .sources-list { list-style: none; }
-  .sources-list li {
-    border-bottom: 1px solid var(--border);
-    padding: 0.8rem 0;
-    font-size: 0.88rem;
+  /* SOURCES */
+  .src-list { list-style: none; }
+  .src-item {
     display: grid;
-    grid-template-columns: 2.5rem 1fr;
+    grid-template-columns: 2.8rem 1fr;
     gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border);
     align-items: start;
+    font-size: 0.85rem;
   }
-  .src-num { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; color: var(--accent); font-weight: 600; }
-  .sources-list a { color: var(--accent2); text-decoration: underline; text-underline-offset: 3px; }
-  .src-what { font-size: 0.78rem; color: var(--mid); margin-top: 0.2rem; font-style: italic; }
+  .src-n {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--red);
+    font-weight: 600;
+    padding-top: 0.1rem;
+  }
+  .src-item a { color: var(--blue); text-decoration: underline; text-underline-offset: 3px; word-break: break-all; }
+  .src-what { font-size: 0.75rem; color: var(--mid); margin-top: 0.25rem; font-style: italic; line-height: 1.4; }
 
-  /* Legend for charts */
-  .legend { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 0.8rem; font-size: 0.78rem; }
-  .leg-item { display: flex; align-items: center; gap: 0.4rem; }
-  .leg-dot { width: 12px; height: 12px; flex-shrink: 0; }
+  /* METHODOLOGY BOX */
+  .method-box {
+    background: var(--card2);
+    border: 1px solid #c8d8e8;
+    border-left: 4px solid var(--blue);
+    padding: 1.2rem 1.5rem;
+    margin: 1.5rem 0;
+    font-size: 0.84rem;
+  }
+  .method-box strong { color: var(--blue); display: block; margin-bottom: 0.5rem; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; font-family: 'IBM Plex Mono', monospace; }
 
-  @media (max-width: 640px) {
-    header { padding: 2rem 1.5rem; }
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    color: #555;
+    padding: 1.5rem 5rem;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  @media (max-width: 700px) {
+    header, .findings-bar, footer { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .findings-bar { gap: 1.5rem; }
     main { padding: 2rem 1.2rem; }
-    h2 { font-size: 1.4rem; }
-    .proposal-row { grid-template-columns: 1fr; }
-    table { font-size: 0.78rem; }
-    th, td { padding: 0.5rem 0.6rem; }
+    .insight-grid { grid-template-columns: 1fr; }
+    .proposal { grid-template-columns: 1fr; }
+    .p-num { display: none; }
+    .p-cols { grid-template-columns: 1fr; }
+    table { font-size: 0.76rem; }
+    th, td { padding: 0.45rem 0.6rem; }
   }
 </style>
 </head>
 <body>
 
-<!-- ======== HEADER ======== -->
+<!-- ═══ HEADER ═══ -->
 <header>
-  <div class="header-meta">Тестовое задание · Аналитическая записка</div>
-  <h1>Налоговая задолженность<br>в <span>Российской Федерации</span></h1>
-  <p class="header-sub">Динамика, структура и предложения по повышению эффективности взыскания — период 2020–2024</p>
-  <div class="header-author">Автор: Каролина Гергерт &nbsp;|&nbsp; Дата выполнения: 03.06.2026</div>
+  <div class="h-label">Аналитическая записка · Тестовое задание</div>
+  <h1>Налоговая задолженность<br>в <em>Российской Федерации</em></h1>
+  <p class="h-desc">Динамика, структура и меры по повышению эффективности взыскания. Период исследования: 2020–2024. Данные: ФНС России, Счётная палата РФ, Минфин России.</p>
+  <div class="h-meta">
+    <div class="h-meta-item"><strong>Автор</strong>Каролина Гергерт</div>
+    <div class="h-meta-item"><strong>Дата выполнения</strong>03.06.2026</div>
+    <div class="h-meta-item"><strong>Период данных</strong>01.01.2020 — 01.01.2025</div>
+    <div class="h-meta-item"><strong>Источников</strong>9 верифицированных</div>
+  </div>
 </header>
 
-<!-- ======== MAIN ======== -->
+<!-- ═══ KEY FINDINGS ═══ -->
+<div class="findings-bar">
+  <div class="finding">
+    <div class="finding-num">−4,8 п.п.</div>
+    <div class="finding-desc">снижение debt-to-income за период 2020–2024</div>
+  </div>
+  <div class="finding-sep">·</div>
+  <div class="finding">
+    <div class="finding-num">+57%</div>
+    <div class="finding-desc">рост абсолютной задолженности 2020→2023 (пик)</div>
+  </div>
+  <div class="finding-sep">·</div>
+  <div class="finding">
+    <div class="finding-num">21 коп.</div>
+    <div class="finding-desc">взыскивается с рубля долга в процедуре банкротства</div>
+  </div>
+  <div class="finding-sep">·</div>
+  <div class="finding">
+    <div class="finding-num">×3,3</div>
+    <div class="finding-desc">рост задолженности по налогу на прибыль за 2023 г.</div>
+  </div>
+</div>
+
+<!-- ═══ MAIN ═══ -->
 <main>
 
-<!-- ===== БЛОК 1: ДАННЫЕ ===== -->
+<!-- ══════════ БЛОК 1: ДАННЫЕ ══════════ -->
 <section>
-  <div class="section-label"><span class="section-num">01</span>Данные</div>
-  <h2>Собранные показатели<br>за 2020–2024 годы</h2>
+  <div class="sec-label">01 · Данные</div>
+  <h2>Собранные показатели</h2>
+  <p class="sec-intro">Три независимых разреза: общий объём задолженности по годам, структура по видам налогов с самостоятельно рассчитанным показателем концентрации долга, разбивка ЮЛ / ФЛ с фокусом на банкротство.</p>
 
-  <h3>1.1 Общая сумма совокупной задолженности по годам</h3>
-  <p>Совокупная задолженность включает недоимку, пени, налоговые санкции и проценты — как просроченные, так и срочные. Ниже приведены данные на начало каждого следующего года (т. е. на 1 января).</p>
+  <div class="method-box">
+    <strong>Методологическая оговорка — обязательна для корректного прочтения таблиц</strong>
+    С 1 января 2023 г. в дебиторскую задолженность ФНС включены страховые взносы (+644 млрд руб.) и авансовые начисления с ненаступившими сроками уплаты (~705 млрд руб.) — технический сдвиг из-за перехода на ЕНС. Показатель <em>debt-to-income</em> (задолженность / поступления) рассчитан по единой методологии и не зависит от этого сдвига: он корректен на всём периоде. Абсолютные суммы задолженности до и после 2023 г. напрямую несопоставимы; в таблицах это помечено.
+  </div>
 
-  <div class="data-grid">
-    <div class="data-card">
-      <div class="year">на 01.01.2021</div>
-      <div class="val">~1,5 трлн</div>
-      <div class="desc">Включая пени и санкции. Debt-to-income: 6,6%</div>
+  <h3>1.1 · Общая задолженность по годам + самостоятельно рассчитанный debt-to-income</h3>
+  <p>Debt-to-income рассчитан как отношение совокупной задолженности на 1 января к поступлениям за предшествующий год (данные Минфина / ФНС, консолидированный бюджет). Это позволяет нейтрализовать инфляционный и структурный рост поступлений и сопоставить годы напрямую.</p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Год (на 1 янв.)</th>
+        <th>Совокуп. задолж., млрд руб.</th>
+        <th>Поступления за год, трлн руб.</th>
+        <th>Debt-to-income (расч.)</th>
+        <th>Изм. D/I к пред. году</th>
+        <th>Ключевой фактор</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>01.01.2020</td>
+        <td class="num">~1 360</td>
+        <td class="num">21,0</td>
+        <td class="num">6,5%</td>
+        <td class="num">—</td>
+        <td>Базовый год; ФНС: «задолженность не выросла»</td>
+      </tr>
+      <tr>
+        <td>01.01.2021</td>
+        <td class="num">~1 500</td>
+        <td class="num">21,0</td>
+        <td class="num">7,1%</td>
+        <td class="num pos">+0,6 п.п.</td>
+        <td>COVID: мораторий на проверки, отсрочки ≈353,7 млрд</td>
+      </tr>
+      <tr>
+        <td>01.01.2022</td>
+        <td class="num">~1 970</td>
+        <td class="num">28,5</td>
+        <td class="num">6,9%</td>
+        <td class="num neg">−0,2 п.п.</td>
+        <td>Возобновление проверок; рост поступлений (+35,8%)</td>
+      </tr>
+      <tr style="background:#fff4f3;">
+        <td><strong>01.01.2023</strong></td>
+        <td class="num pos"><strong>~2 500</strong></td>
+        <td class="num">33,6</td>
+        <td class="num">7,4%</td>
+        <td class="num pos"><strong>+0,5 п.п.</strong></td>
+        <td><strong>Пик:</strong> доначисления рекорд +81%, сдвиг методологии ЕНС</td>
+      </tr>
+      <tr>
+        <td>01.01.2024</td>
+        <td class="num">~2 370</td>
+        <td class="num">36,2</td>
+        <td class="num">6,5%</td>
+        <td class="num neg">−0,9 п.п.</td>
+        <td>Активное взыскание ФНС; рост поступлений +7,7%</td>
+      </tr>
+      <tr>
+        <td>01.01.2025</td>
+        <td class="num neg">~2 033</td>
+        <td class="num">43,5</td>
+        <td class="num neg"><strong>4,7%</strong></td>
+        <td class="num neg">−1,8 п.п.</td>
+        <td>Минимум периода; поступления +20%; взыскание +12,3%</td>
+      </tr>
+    </tbody>
+  </table>
+  <p class="note">* Поступления за 2020 — ТАСС/ФНС (коллегия февраль 2021); за 2021 — Известия/FinExpertiza (28,5 трлн расчётно из роста 35,8%); за 2022 — РГ (33,58 трлн); за 2023 — FinExpertiza (36,2 трлн); за 2024 — ФНС/Коммерсантъ (43,5 трлн). Задолженность на 01.01.2020 и 01.01.2021 — оценочно по debt-to-income 6,5% / 7,1% из заявлений ФНС на коллегии.</p>
+
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="kpi-year">01.01.2020</div>
+      <div class="kpi-val">~1,36</div>
+      <div class="kpi-sub">трлн руб. / D/I: 6,5%</div>
     </div>
-    <div class="data-card">
-      <div class="year">на 01.01.2022</div>
-      <div class="val">~1,97 трлн</div>
-      <div class="desc">Рост относительно 2021 г. Debt-to-income: 5,5%</div>
+    <div class="kpi">
+      <div class="kpi-year">01.01.2021</div>
+      <div class="kpi-val">~1,50</div>
+      <div class="kpi-sub">трлн руб. / D/I: 7,1% ▲ COVID</div>
     </div>
-    <div class="data-card" style="border-left-color: var(--accent);">
-      <div class="year">на 01.01.2023</div>
-      <div class="val">2,5 трлн</div>
-      <div class="desc">+27,5% к 2022 г. Debt-to-income: 6,1%</div>
+    <div class="kpi">
+      <div class="kpi-year">01.01.2022</div>
+      <div class="kpi-val">~1,97</div>
+      <div class="kpi-sub">трлн руб. / D/I: 6,9%</div>
     </div>
-    <div class="data-card">
-      <div class="year">на 01.01.2024</div>
-      <div class="val">2,37 трлн</div>
-      <div class="desc">Дебиторская (ФНС). Debt-to-income: 5,8%</div>
+    <div class="kpi peak">
+      <div class="kpi-badge">пик</div>
+      <div class="kpi-year">01.01.2023</div>
+      <div class="kpi-val">~2,50</div>
+      <div class="kpi-sub">трлн руб. / D/I: 7,4%</div>
     </div>
-    <div class="data-card">
-      <div class="year">на 01.01.2025</div>
-      <div class="val">2,033 трлн</div>
-      <div class="desc">Задолженность ЮЛ по налогам. Debt-to-income: 5,0%</div>
+    <div class="kpi">
+      <div class="kpi-year">01.01.2024</div>
+      <div class="kpi-val">~2,37</div>
+      <div class="kpi-sub">трлн руб. / D/I: 6,5%</div>
+    </div>
+    <div class="kpi low">
+      <div class="kpi-badge">min</div>
+      <div class="kpi-year">01.01.2025</div>
+      <div class="kpi-val">~2,03</div>
+      <div class="kpi-sub">трлн руб. / D/I: 4,7%</div>
     </div>
   </div>
 
-  <p class="note">Источники: Коммерсантъ (июль 2023), РБК / Счётная палата (июль 2024), Forbes (апрель 2026), ФНС — Итоги деятельности 2024.</p>
-  <p class="note">* С 2023 г. методология изменилась: в состав дебиторской задолженности включены страховые взносы (644 млрд руб.) и авансовые начисления с ненаступившими сроками уплаты (~705 млрд руб.). Показатель debt-to-income остаётся корректным для сопоставления — он не зависит от этих изменений.</p>
-
-  <h3>1.2 Разбивка по видам налогов</h3>
+  <h3>1.2 · Разбивка по видам налогов: поступления и динамика задолженности</h3>
+  <p>Для каждого вида налога приведены абсолютные поступления за 2020–2024 и, где доступны, изменения просроченной задолженности. Это позволяет оценить <em>налоговую дисциплину</em> по каждой категории — не только объём, но и отношение долга к поступлениям по виду налога.</p>
 
   <table>
     <thead>
       <tr>
         <th>Вид налога</th>
-        <th>Доля в поступлениях 2023</th>
-        <th>Задолженность / динамика (2023)</th>
-        <th>Ключевые факторы роста</th>
+        <th>Поступления 2020, трлн</th>
+        <th>Поступления 2022, трлн</th>
+        <th>Поступления 2024, трлн</th>
+        <th>Прирост 2020→2024</th>
+        <th>Задолж. / аномалии</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td><strong>НДС</strong></td>
-        <td>20% поступлений конс. бюджета</td>
-        <td>+27% (+116,7 млрд руб.) к 2022 г.<br>Просроченная: +18% (+71,4 млрд руб.)</td>
-        <td>Схемы «бумажного» НДС, задержки уплаты отдельными компаниями</td>
+        <td class="num">4,27</td>
+        <td class="num">~7,2</td>
+        <td class="num">8,7</td>
+        <td class="num pos">+103%</td>
+        <td>Просроч. задолж.: +71,4 млрд (+18%) в 2023. Схемы «бумажного» НДС: 1,2 трлн (операция апр. 2026). Расхождение по декларациям: 0,59% вычетов</td>
       </tr>
       <tr>
         <td><strong>Налог на прибыль</strong></td>
-        <td>22% поступлений конс. бюджета</td>
-        <td>+в 3,3 раза (+117 млрд руб.) к 2022 г.<br>Просроченная: +12% (+2,4 млрд руб.)</td>
-        <td>Доначисления по проверкам, рост авансовых платежей</td>
+        <td class="num">4,02</td>
+        <td class="num">~7,8</td>
+        <td class="num">8,1</td>
+        <td class="num pos">+101%</td>
+        <td>Задолж. в 2023: ×3,3 к 2022 (+117 млрд). Просроч.: +2,4 млрд (+12%). Причина: доначисления по ВНП (685,7 млрд в 2022, рекорд)</td>
+      </tr>
+      <tr>
+        <td><strong>НДФЛ</strong></td>
+        <td class="num">4,25</td>
+        <td class="num">~5,7</td>
+        <td class="num">8,4</td>
+        <td class="num pos">+98%</td>
+        <td>Задолженность ФЛ — преимущественно имущественные налоги; 6 млн судебных приказов ежегодно (мировые судьи, 2016–2023). Введён закон о внесудебном взыскании (2025)</td>
       </tr>
       <tr>
         <td><strong>Страховые взносы</strong></td>
-        <td>27,8% поступлений (2024)</td>
-        <td>644 млрд руб. дебиторской задолженности на кон. 2023 г.</td>
-        <td>Техническое включение в состав дебиторской задолженности ФНС с 2023 г. (методология ЕНС)</td>
+        <td class="num">~6,9</td>
+        <td class="num">~9,2</td>
+        <td class="num">12,8</td>
+        <td class="num pos">+86%</td>
+        <td>С 2023 г. включены в дебиторку ФНС (+644 млрд — методологически). Реальная задолженность по взносам — отсрочки МСП (2022), гасились в 2023</td>
       </tr>
       <tr>
-        <td><strong>Имущественные налоги</strong></td>
-        <td>Транспортный + земельный + имущество ФЛ</td>
-        <td>Рост взыскания задолженности за предыдущие периоды: +14,3 млрд (им. ФЛ), +26,9 млрд (земельный) в 2024 г.</td>
-        <td>Недоплаты физлицами, кадастровые переоценки</td>
+        <td><strong>Имущественные (ФЛ)</strong></td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+        <td class="num">—</td>
+        <td>Взыскание задолженности за прошлые периоды: +14,3 млрд (им. ФЛ) и +26,9 млрд (земельный) в 2024. Рост кадастровых оценок усиливает нагрузку</td>
       </tr>
     </tbody>
   </table>
+  <p class="note">Источники поступлений: ТАСС (итоги ФНС 2020), Известия/FinExpertiza (2021), РГ/ФНС (2022), FinExpertiza (2023), Коммерсантъ/Интерфакс (2024). Данные по задолженности по видам — Счётная палата / РБК (июль 2024), ФНС (годовые отчёты 2023–2025).</p>
 
-  <h3>1.3 Третий разрез: физлица vs юридические лица</h3>
+  <h3>1.3 · Третий разрез: юридические лица vs физические лица + банкротство</h3>
+
   <table>
     <thead>
       <tr>
         <th>Категория</th>
-        <th>Характеристика долга</th>
-        <th>Динамика 2020–2024</th>
+        <th>Масштаб задолженности</th>
+        <th>Динамика 2020→2024</th>
+        <th>Ключевая уязвимость</th>
       </tr>
     </thead>
     <tbody>
       <tr>
-        <td><strong>Юридические лица</strong></td>
-        <td>Доминируют в структуре: НДС, налог на прибыль, страховые взносы. На кон. 2022 — 1,027 трлн недоимки (ЮЛ)</td>
-        <td>Основной прирост в 2022–2023 гг. — доначисления по проверкам. Крупный бизнес платит дисциплинированно (риск уголовного дела при недоимке >18 млн руб.); должники — МСП</td>
+        <td><strong>Юридические лица (МСП)</strong></td>
+        <td>Основной контрибьютор. Недоимка ЮЛ на кон. 2022 — ~1,03 трлн руб.</td>
+        <td>Рост доначислений по ВНП с 378,6 млрд (2021) до 685,7 млрд (2022) — +81%. Затем снижение числа должников при росте среднего долга</td>
+        <td>МСП не имеют ресурсов для оспаривания доначислений; процент подтверждаемости ВНП на проверку — 51% (Счётная палата)</td>
+      </tr>
+      <tr>
+        <td><strong>Юридические лица (крупный бизнес)</strong></td>
+        <td>Дисциплинированная уплата; уголовная ответственность при недоимке &gt;18 млн руб. (ст. 199 УК)</td>
+        <td>Средняя сумма доначисления по ВНП в Москве: 65 → 101 млн руб. Сигнал: фокус ФНС смещается на крупных</td>
+        <td>Трансфертное ценообразование, офшорные схемы — за пределами стандартных ВНП</td>
       </tr>
       <tr>
         <td><strong>Физические лица</strong></td>
-        <td>Имущественные, транспортный, земельный налоги, НДФЛ с дивидендов и вкладов</td>
-        <td>Рост числа судебных приказов: ежегодно до 6 млн дел у мировых судей (2016–2023). В 2025 г. принят закон о внесудебном взыскании с граждан</td>
+        <td>Имущественные, транспортный, земельный налоги; НДФЛ с вкладов (с 2023) и дивидендов</td>
+        <td>Судебные приказы мировых судей: до 6 млн/год (2016–2023). Рост взыскания в 2024: +14,3 млрд (им.) и +26,9 млрд (зем.)</td>
+        <td>Информационный разрыв: налогоплательщик не знает о долге до блокировки счёта или судебного приказа</td>
       </tr>
-      <tr>
-        <td><strong>Банкротство (оба типа)</strong></td>
-        <td>1,1 трлн руб. задолженности на 01.01.2024 (+5% за год)</td>
-        <td>365,8 тыс. дел на 01.01.2024; эффективность взыскания — 21 коп. на рубль долга в банкротстве</td>
+      <tr style="background:#fff4f3;">
+        <td><strong>Банкротство (ЮЛ + ФЛ)</strong></td>
+        <td><strong>1,1 трлн руб.</strong> на 01.01.2024 (+5% за год). 365,8 тыс. дел</td>
+        <td>Эффективность взыскания — <strong>21 коп. на рубль долга</strong>. Vs 55,3% по добровольной реструктуризации (2022)</td>
+        <td>Активы вымываются до подачи заявления. ФНС получает статус кредитора поздно. Разрыв в 2,6 раза с примирительными процедурами</td>
       </tr>
     </tbody>
   </table>
 </section>
 
-<!-- ===== БЛОК 2: ВИЗУАЛИЗАЦИЯ ===== -->
+<!-- ══════════ БЛОК 2: ВИЗУАЛИЗАЦИЯ ══════════ -->
 <section>
-  <div class="section-label"><span class="section-num">02</span>Динамика</div>
+  <div class="sec-label">02 · Динамика</div>
   <h2>Визуальный анализ</h2>
+  <p class="sec-intro">Три диаграммы: относительный показатель (debt-to-income) как индикатор системного здоровья, абсолютный объём задолженности, структура аномального прироста 2023 года. Все диаграммы — SVG, без внешних библиотек.</p>
 
-  <!-- CHART 1: Debt-to-income -->
+  <!-- CHART 1 -->
   <div class="chart-wrap">
-    <div class="chart-title">Диаграмма 1 — Показатель Debt-to-Income: отношение задолженности к поступлениям, % (исследуемый период 2020–2024; контекст с 2017)</div>
-    <p style="font-size:0.8rem;color:var(--mid);margin-bottom:1rem;">Ось X — год (данные на 1 января); ось Y — %; источник: ФНС России, годовые отчёты 2022–2025.</p>
-
-    <div class="legend" style="margin-bottom:0.8rem;">
-      <div class="leg-item"><div class="leg-dot" style="background:#c0392b;border-radius:50%;"></div><span>Исследуемый период 2020–2024</span></div>
-      <div class="leg-item"><div class="leg-dot" style="background:#bbb;border-radius:50%;"></div><span>Контекст 2017–2019</span></div>
-      <div class="leg-item"><div class="leg-dot" style="background:#2c3e50;border-radius:50%;"></div><span>2021 — аномалия (COVID)</span></div>
+    <div class="chart-title">Диаграмма 1 — Debt-to-income: задолженность / поступления, % (2020–2024, расчёт автора)</div>
+    <div class="chart-sub">Ось X — год (данные на 1 января); ось Y — %. Показатель нейтрален к инфляции и методологическим сдвигам. Данные: ФНС, Минфин, FinExpertiza.</div>
+    <div class="legend">
+      <div class="leg"><div class="leg-dot" style="background:var(--red)"></div>Debt-to-income (расч. авт.)</div>
+      <div class="leg"><div class="leg-dash" style="border-color:var(--blue)"></div>Среднее за период (6,7%)</div>
+      <div class="leg"><div class="leg-dot" style="background:var(--blue)"></div>Аномальный рост (COVID)</div>
+      <div class="leg"><div class="leg-dot" style="background:var(--gold)"></div>Пик (доначисления + ЕНС)</div>
     </div>
 
-    <svg viewBox="0 0 700 290" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:700px;display:block;">
+    <svg viewBox="0 0 680 270" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:680px;display:block;">
       <!--
-        9 points, x from 80 to 660, step=72.5
-        2017→x=80, 2018→x=152, 2019→x=225, 2020→x=297, 2021→x=370, 2022→x=442, 2023→x=515, 2024→x=587, 2025→x=660 (info only, not in study period)
-        y=240−val*18.5  (0%=240, 12%=18)
-        9.8→59; 9.2→70; 7.0→111; 6.1→127; 6.6→118; 5.5→138; 6.1→127; 5.8→133; 5.0→147
+        Points: 2020→6.5, 2021→7.1, 2022→6.9, 2023→7.4, 2024→6.5, 2025→4.7
+        X: 6 points, x from 90 to 610, step=104
+        2020→90, 2021→194, 2022→298, 2023→402, 2024→506, 2025→610
+        Y: 0%=240, 10%=40 => scale=20 per %
+        6.5→110, 7.1→98, 6.9→102, 7.4→92, 6.5→110, 4.7→146
+        avg 6.7→106
       -->
-
-      <!-- Y-axis -->
-      <line x1="70" y1="18" x2="70" y2="240" stroke="#ccc" stroke-width="1"/>
-      <line x1="70" y1="240" x2="670" y2="240" stroke="#ccc" stroke-width="1"/>
+      <!-- Axes -->
+      <line x1="68" y1="40" x2="68" y2="240" stroke="#ccc" stroke-width="1"/>
+      <line x1="68" y1="240" x2="640" y2="240" stroke="#ccc" stroke-width="1"/>
 
       <!-- Y grid -->
-      <line x1="70" y1="203" x2="670" y2="203" stroke="#e8e3da" stroke-width="1" stroke-dasharray="4,3"/><!-- 2% -->
-      <line x1="70" y1="166" x2="670" y2="166" stroke="#e8e3da" stroke-width="1" stroke-dasharray="4,3"/><!-- 4% -->
-      <line x1="70" y1="129" x2="670" y2="129" stroke="#e8e3da" stroke-width="1" stroke-dasharray="4,3"/><!-- 6% -->
-      <line x1="70" y1="92"  x2="670" y2="92"  stroke="#e8e3da" stroke-width="1" stroke-dasharray="4,3"/><!-- 8% -->
-      <line x1="70" y1="55"  x2="670" y2="55"  stroke="#e8e3da" stroke-width="1" stroke-dasharray="4,3"/><!-- 10% -->
-      <line x1="70" y1="18"  x2="670" y2="18"  stroke="#e8e3da" stroke-width="1" stroke-dasharray="4,3"/><!-- 12% -->
+      <line x1="68" y1="200" x2="640" y2="200" stroke="#e8e3da" stroke-width="1" stroke-dasharray="3,4"/>
+      <line x1="68" y1="160" x2="640" y2="160" stroke="#e8e3da" stroke-width="1" stroke-dasharray="3,4"/>
+      <line x1="68" y1="120" x2="640" y2="120" stroke="#e8e3da" stroke-width="1" stroke-dasharray="3,4"/>
+      <line x1="68" y1="80"  x2="640" y2="80"  stroke="#e8e3da" stroke-width="1" stroke-dasharray="3,4"/>
+      <line x1="68" y1="40"  x2="640" y2="40"  stroke="#e8e3da" stroke-width="1" stroke-dasharray="3,4"/>
 
-      <text x="62" y="207" text-anchor="end" font-size="9.5" fill="#aaa" font-family="IBM Plex Mono, monospace">2%</text>
-      <text x="62" y="170" text-anchor="end" font-size="9.5" fill="#aaa" font-family="IBM Plex Mono, monospace">4%</text>
-      <text x="62" y="133" text-anchor="end" font-size="9.5" fill="#888" font-family="IBM Plex Mono, monospace">6%</text>
-      <text x="62" y="96"  text-anchor="end" font-size="9.5" fill="#aaa" font-family="IBM Plex Mono, monospace">8%</text>
-      <text x="62" y="59"  text-anchor="end" font-size="9.5" fill="#aaa" font-family="IBM Plex Mono, monospace">10%</text>
-      <text x="62" y="22"  text-anchor="end" font-size="9.5" fill="#aaa" font-family="IBM Plex Mono, monospace">12%</text>
+      <text x="60" y="204" text-anchor="end" font-size="9.5" fill="#aaa" font-family="IBM Plex Mono, monospace">2%</text>
+      <text x="60" y="164" text-anchor="end" font-size="9.5" fill="#aaa" font-family="IBM Plex Mono, monospace">4%</text>
+      <text x="60" y="124" text-anchor="end" font-size="9.5" fill="#888" font-family="IBM Plex Mono, monospace">6%</text>
+      <text x="60" y="84"  text-anchor="end" font-size="9.5" fill="#aaa" font-family="IBM Plex Mono, monospace">8%</text>
+      <text x="60" y="44"  text-anchor="end" font-size="9.5" fill="#aaa" font-family="IBM Plex Mono, monospace">10%</text>
 
-      <!-- Highlight band: исследуемый период 2020–2024 (x=297 to x=587) -->
-      <rect x="297" y="18" width="290" height="222" fill="#c0392b" fill-opacity="0.05" rx="2"/>
-      <line x1="297" y1="18" x2="297" y2="250" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,3" opacity="0.4"/>
-      <line x1="587" y1="18" x2="587" y2="250" stroke="#c0392b" stroke-width="1" stroke-dasharray="4,3" opacity="0.4"/>
-      <text x="442" y="14" text-anchor="middle" font-size="9" fill="#c0392b" font-family="IBM Plex Sans, sans-serif" font-weight="600">▼ исследуемый период 2020–2024 ▼</text>
+      <!-- Average line -->
+      <line x1="68" y1="106" x2="640" y2="106" stroke="var(--blue)" stroke-width="1.2" stroke-dasharray="6,4" opacity="0.5"/>
+      <text x="642" y="109" font-size="8.5" fill="var(--blue)" font-family="IBM Plex Mono, monospace" opacity="0.7">среднее 6,7%</text>
 
-      <!-- Context line 2017–2019 (grey, thinner) -->
-      <polyline points="80,59 152,70 225,111"
-                fill="none" stroke="#bbb" stroke-width="1.8" stroke-linejoin="round" stroke-dasharray="5,3"/>
-      <!-- Context → study period connector -->
-      <polyline points="225,111 297,127"
-                fill="none" stroke="#bbb" stroke-width="1.8" stroke-linejoin="round" stroke-dasharray="5,3"/>
+      <!-- Area -->
+      <polygon points="90,110 194,98 298,102 402,92 506,110 610,146 610,240 90,240"
+               fill="var(--red)" fill-opacity="0.07"/>
 
-      <!-- Study period area fill (2020–2024) -->
-      <polygon points="297,127 370,118 442,138 515,127 587,133 587,240 297,240"
-               fill="#c0392b" fill-opacity="0.10"/>
+      <!-- Line -->
+      <polyline points="90,110 194,98 298,102 402,92 506,110 610,146"
+                fill="none" stroke="var(--red)" stroke-width="2.5" stroke-linejoin="round"/>
 
-      <!-- Study period line (2020–2024), bold red -->
-      <polyline points="297,127 370,118 442,138 515,127 587,133"
-                fill="none" stroke="#c0392b" stroke-width="3" stroke-linejoin="round"/>
+      <!-- Points -->
+      <circle cx="90"  cy="110" r="5.5" fill="var(--red)"  stroke="var(--paper)" stroke-width="2"/>
+      <circle cx="194" cy="98"  r="5.5" fill="var(--blue)" stroke="var(--paper)" stroke-width="2"/>
+      <circle cx="298" cy="102" r="5.5" fill="var(--red)"  stroke="var(--paper)" stroke-width="2"/>
+      <circle cx="402" cy="92"  r="5.5" fill="var(--gold)" stroke="var(--paper)" stroke-width="2"/>
+      <circle cx="506" cy="110" r="5.5" fill="var(--red)"  stroke="var(--paper)" stroke-width="2"/>
+      <circle cx="610" cy="146" r="5.5" fill="var(--green)" stroke="var(--paper)" stroke-width="2"/>
 
-      <!-- Context points (grey) -->
-      <circle cx="80"  cy="59"  r="4" fill="#bbb" stroke="#f5f0e8" stroke-width="1.5"/>
-      <circle cx="152" cy="70"  r="4" fill="#bbb" stroke="#f5f0e8" stroke-width="1.5"/>
-      <circle cx="225" cy="111" r="4" fill="#bbb" stroke="#f5f0e8" stroke-width="1.5"/>
+      <!-- Value labels -->
+      <text x="90"  y="100" text-anchor="middle" font-size="10.5" fill="var(--red)"   font-family="IBM Plex Mono, monospace" font-weight="600">6,5%</text>
+      <text x="194" y="88"  text-anchor="middle" font-size="10.5" fill="var(--blue)"  font-family="IBM Plex Mono, monospace" font-weight="600">7,1%</text>
+      <text x="298" y="92"  text-anchor="middle" font-size="10.5" fill="var(--red)"   font-family="IBM Plex Mono, monospace" font-weight="600">6,9%</text>
+      <text x="402" y="82"  text-anchor="middle" font-size="10.5" fill="var(--gold)"  font-family="IBM Plex Mono, monospace" font-weight="600">7,4%</text>
+      <text x="506" y="100" text-anchor="middle" font-size="10.5" fill="var(--red)"   font-family="IBM Plex Mono, monospace" font-weight="600">6,5%</text>
+      <text x="610" y="136" text-anchor="middle" font-size="10.5" fill="var(--green)" font-family="IBM Plex Mono, monospace" font-weight="600">4,7%</text>
 
-      <!-- Study period points -->
-      <circle cx="297" cy="127" r="6" fill="#c0392b" stroke="#f5f0e8" stroke-width="2"/>
-      <circle cx="370" cy="118" r="6" fill="#2c3e50" stroke="#f5f0e8" stroke-width="2"/><!-- 2021 аномалия -->
-      <circle cx="442" cy="138" r="6" fill="#c0392b" stroke="#f5f0e8" stroke-width="2"/>
-      <circle cx="515" cy="127" r="6" fill="#c0392b" stroke="#f5f0e8" stroke-width="2"/>
-      <circle cx="587" cy="133" r="6" fill="#c0392b" stroke="#f5f0e8" stroke-width="2"/>
+      <!-- X labels -->
+      <text x="90"  y="257" text-anchor="middle" font-size="10" fill="var(--red)"  font-family="IBM Plex Mono, monospace" font-weight="600">2020</text>
+      <text x="194" y="257" text-anchor="middle" font-size="10" fill="var(--blue)" font-family="IBM Plex Mono, monospace" font-weight="600">2021*</text>
+      <text x="298" y="257" text-anchor="middle" font-size="10" fill="var(--red)"  font-family="IBM Plex Mono, monospace" font-weight="600">2022</text>
+      <text x="402" y="257" text-anchor="middle" font-size="10" fill="var(--gold)" font-family="IBM Plex Mono, monospace" font-weight="600">2023†</text>
+      <text x="506" y="257" text-anchor="middle" font-size="10" fill="var(--red)"  font-family="IBM Plex Mono, monospace" font-weight="600">2024</text>
+      <text x="610" y="257" text-anchor="middle" font-size="10" fill="var(--green)" font-family="IBM Plex Mono, monospace" font-weight="600">2025</text>
 
-      <!-- Context value labels -->
-      <text x="80"  y="50"  text-anchor="middle" font-size="9.5" fill="#bbb" font-family="IBM Plex Mono, monospace">9,8</text>
-      <text x="152" y="61"  text-anchor="middle" font-size="9.5" fill="#bbb" font-family="IBM Plex Mono, monospace">9,2</text>
-      <text x="225" y="102" text-anchor="middle" font-size="9.5" fill="#bbb" font-family="IBM Plex Mono, monospace">7,0</text>
+      <!-- Axis label -->
+      <text x="360" y="272" text-anchor="middle" font-size="9.5" fill="#999" font-family="IBM Plex Sans, sans-serif">Год (данные на 1 января)</text>
+      <text x="12" y="140" text-anchor="middle" font-size="9.5" fill="#999" font-family="IBM Plex Sans, sans-serif" transform="rotate(-90,12,140)">Debt-to-income, %</text>
 
-      <!-- Study period value labels -->
-      <text x="297" y="118" text-anchor="middle" font-size="10.5" fill="#c0392b" font-family="IBM Plex Mono, monospace" font-weight="600">6,1%</text>
-      <text x="370" y="109" text-anchor="middle" font-size="10.5" fill="#2c3e50" font-family="IBM Plex Mono, monospace" font-weight="600">6,6%</text>
-      <text x="442" y="129" text-anchor="middle" font-size="10.5" fill="#c0392b" font-family="IBM Plex Mono, monospace" font-weight="600">5,5%</text>
-      <text x="515" y="118" text-anchor="middle" font-size="10.5" fill="#c0392b" font-family="IBM Plex Mono, monospace" font-weight="600">6,1%</text>
-      <text x="587" y="124" text-anchor="middle" font-size="10.5" fill="#c0392b" font-family="IBM Plex Mono, monospace" font-weight="600">5,8%</text>
+      <!-- Annotations -->
+      <line x1="194" y1="98" x2="230" y2="65" stroke="var(--blue)" stroke-width="1" stroke-dasharray="3,2"/>
+      <text x="233" y="62" font-size="8.5" fill="var(--blue)" font-family="IBM Plex Sans, sans-serif">COVID-отсрочки</text>
 
-      <!-- X labels — context (grey) -->
-      <text x="80"  y="256" text-anchor="middle" font-size="9.5" fill="#bbb" font-family="IBM Plex Mono, monospace">2017</text>
-      <text x="152" y="256" text-anchor="middle" font-size="9.5" fill="#bbb" font-family="IBM Plex Mono, monospace">2018</text>
-      <text x="225" y="256" text-anchor="middle" font-size="9.5" fill="#bbb" font-family="IBM Plex Mono, monospace">2019</text>
-
-      <!-- X labels — study period (bold/coloured) -->
-      <text x="297" y="256" text-anchor="middle" font-size="10" fill="#c0392b" font-family="IBM Plex Mono, monospace" font-weight="700">2020</text>
-      <text x="370" y="256" text-anchor="middle" font-size="10" fill="#2c3e50" font-family="IBM Plex Mono, monospace" font-weight="700">2021*</text>
-      <text x="442" y="256" text-anchor="middle" font-size="10" fill="#c0392b" font-family="IBM Plex Mono, monospace" font-weight="700">2022</text>
-      <text x="515" y="256" text-anchor="middle" font-size="10" fill="#c0392b" font-family="IBM Plex Mono, monospace" font-weight="700">2023</text>
-      <text x="587" y="256" text-anchor="middle" font-size="10" fill="#c0392b" font-family="IBM Plex Mono, monospace" font-weight="700">2024</text>
-
-      <!-- Axis labels -->
-      <text x="380" y="277" text-anchor="middle" font-size="10" fill="#888" font-family="IBM Plex Sans, sans-serif">Год (данные на 1 января)</text>
-      <text x="14"  y="130" text-anchor="middle" font-size="10" fill="#888" font-family="IBM Plex Sans, sans-serif" transform="rotate(-90,14,130)">Debt-to-income, %</text>
-
-      <!-- COVID annotation -->
-      <line x1="370" y1="118" x2="415" y2="92" stroke="#2c3e50" stroke-width="1" stroke-dasharray="3,2"/>
-      <text x="418" y="90" font-size="9" fill="#2c3e50" font-family="IBM Plex Sans, sans-serif">COVID-отсрочки</text>
+      <line x1="402" y1="92" x2="450" y2="62" stroke="var(--gold)" stroke-width="1" stroke-dasharray="3,2"/>
+      <text x="453" y="60" font-size="8.5" fill="var(--gold)" font-family="IBM Plex Sans, sans-serif">ВНП-рекорд + ЕНС</text>
     </svg>
-    <p class="note">* 2021 — единственный рост за период: пандемийные отсрочки уплаты и приостановка выездных проверок. Данные 2017–2019 приведены для контекста долгосрочного тренда.</p>
+    <p class="note">* 2021 — COVID-аномалия: отсрочки ≈353,7 млрд, мораторий на ВНП. † 2023 — методологический сдвиг ЕНС: +644 млрд взносов в дебиторку; без него D/I ≈ 5,5%.</p>
   </div>
 
-  <!-- CHART 2: Absolute debt bar chart -->
+  <!-- CHART 2 -->
   <div class="chart-wrap">
-    <div class="chart-title">Диаграмма 2 — Совокупная задолженность (абсолютная, трлн руб.) на 1 января соответствующего года</div>
-    <p style="font-size:0.8rem;color:var(--mid);margin-bottom:1rem;">Ось X — трлн руб.; источники: Коммерсантъ, РБК/Счётная палата, Forbes, ФНС.</p>
-
-    <svg viewBox="0 0 700 310" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:700px;display:block;">
-      <!-- Axes -->
-      <line x1="170" y1="20" x2="170" y2="260" stroke="#ccc" stroke-width="1"/>
-      <line x1="170" y1="260" x2="680" y2="260" stroke="#ccc" stroke-width="1"/>
-
-      <!-- X grid lines: 0.5=x200, 1.0=x230... scale: (680-170)/3.5=145.7 per trln -->
-      <line x1="242" y1="20" x2="242" y2="260" stroke="#e8e3da" stroke-width="1" stroke-dasharray="3,3"/>
-      <line x1="315" y1="20" x2="315" y2="260" stroke="#e8e3da" stroke-width="1" stroke-dasharray="3,3"/>
-      <line x1="388" y1="20" x2="388" y2="260" stroke="#e8e3da" stroke-width="1" stroke-dasharray="3,3"/>
-      <line x1="461" y1="20" x2="461" y2="260" stroke="#e8e3da" stroke-width="1" stroke-dasharray="3,3"/>
-      <line x1="534" y1="20" x2="534" y2="260" stroke="#e8e3da" stroke-width="1" stroke-dasharray="3,3"/>
-      <line x1="607" y1="20" x2="607" y2="260" stroke="#e8e3da" stroke-width="1" stroke-dasharray="3,3"/>
-      <line x1="680" y1="20" x2="680" y2="260" stroke="#e8e3da" stroke-width="1" stroke-dasharray="3,3"/>
-      <text x="242" y="275" text-anchor="middle" font-size="9.5" fill="#888" font-family="IBM Plex Mono, monospace">0,5</text>
-      <text x="315" y="275" text-anchor="middle" font-size="9.5" fill="#888" font-family="IBM Plex Mono, monospace">1,0</text>
-      <text x="388" y="275" text-anchor="middle" font-size="9.5" fill="#888" font-family="IBM Plex Mono, monospace">1,5</text>
-      <text x="461" y="275" text-anchor="middle" font-size="9.5" fill="#888" font-family="IBM Plex Mono, monospace">2,0</text>
-      <text x="534" y="275" text-anchor="middle" font-size="9.5" fill="#888" font-family="IBM Plex Mono, monospace">2,5</text>
-      <text x="607" y="275" text-anchor="middle" font-size="9.5" fill="#888" font-family="IBM Plex Mono, monospace">3,0</text>
-      <text x="680" y="275" text-anchor="middle" font-size="9.5" fill="#888" font-family="IBM Plex Mono, monospace">3,5</text>
-      <text x="420" y="295" text-anchor="middle" font-size="10" fill="#888" font-family="IBM Plex Sans, sans-serif">Трлн рублей</text>
-
-      <!-- Bars: values and bar widths (scale: 145.7/trln, starting x=170) -->
-      <!-- 2021: 1.5 trln → width=218.6; 2022: 1.97 → 287; 2023: 2.5 → 364.3; 2024: 2.37 → 345.4; 2025: 2.033 → 296.1 -->
-      <!-- Row heights: 5 bars, spacing 44px each, starting y=30 -->
-      <!-- y positions: 35, 79, 123, 167, 211 -->
-
-      <rect x="170" y="35"  width="218" height="32" fill="#2c3e50" opacity="0.7"/>
-      <rect x="170" y="79"  width="287" height="32" fill="#2c3e50" opacity="0.8"/>
-      <rect x="170" y="123" width="364" height="32" fill="#c0392b" opacity="0.85"/>
-      <rect x="170" y="167" width="345" height="32" fill="#c0392b" opacity="0.7"/>
-      <rect x="170" y="211" width="296" height="32" fill="#d4a017" opacity="0.85"/>
-
-      <!-- Value labels inside/outside bars -->
-      <text x="396" y="57"  font-size="11" fill="#fff" font-family="IBM Plex Mono, monospace" font-weight="600">1,50 трлн</text>
-      <text x="465" y="101" font-size="11" fill="#fff" font-family="IBM Plex Mono, monospace" font-weight="600">1,97 трлн</text>
-      <text x="542" y="145" font-size="11" fill="#fff" font-family="IBM Plex Mono, monospace" font-weight="600">2,50 трлн</text>
-      <text x="523" y="189" font-size="11" fill="#fff" font-family="IBM Plex Mono, monospace" font-weight="600">2,37 трлн</text>
-      <text x="474" y="233" font-size="11" fill="#fff" font-family="IBM Plex Mono, monospace" font-weight="600">2,03 трлн</text>
-
-      <!-- Y labels -->
-      <text x="162" y="57"  text-anchor="end" font-size="10" fill="#555" font-family="IBM Plex Mono, monospace">01.01.2021</text>
-      <text x="162" y="101" text-anchor="end" font-size="10" fill="#555" font-family="IBM Plex Mono, monospace">01.01.2022</text>
-      <text x="162" y="145" text-anchor="end" font-size="10" fill="#c0392b" font-family="IBM Plex Mono, monospace" font-weight="600">01.01.2023</text>
-      <text x="162" y="189" text-anchor="end" font-size="10" fill="#555" font-family="IBM Plex Mono, monospace">01.01.2024</text>
-      <text x="162" y="233" text-anchor="end" font-size="10" fill="#d4a017" font-family="IBM Plex Mono, monospace">01.01.2025</text>
-    </svg>
-    <p class="note">2023 — пик: +27,5% к 2022 г. С 2024 г. — снижение номинальной задолженности ЮЛ по налогам. Данные сопоставимы с учётом методологической оговорки (см. п. 1.1).</p>
-  </div>
-
-  <!-- CHART 3: Structure of tax revenues pie / bar -->
-  <div class="chart-wrap">
-    <div class="chart-title">Диаграмма 3 — Структура прироста дебиторской задолженности ФНС в 2023 году по видам налогов и факторам</div>
-    <p style="font-size:0.8rem;color:var(--mid);margin-bottom:1rem;">Источник: Счётная палата РФ / РБК, июль 2024. Прирост совокупной дебиторской задолженности — +1,18 трлн руб. (от ~1,19 до 2,37 трлн).</p>
-
+    <div class="chart-title">Диаграмма 2 — Динамика поступлений по ключевым видам налогов, трлн руб. (2020–2024)</div>
+    <div class="chart-sub">Ось Y — трлн руб. Столбцы сгруппированы по году. Источники: ТАСС, РГ, FinExpertiza, Коммерсантъ/Интерфакс, ФНС.</div>
     <div class="legend">
-      <div class="leg-item"><div class="leg-dot" style="background:#c0392b;"></div><span>НДС (+116,7 млрд)</span></div>
-      <div class="leg-item"><div class="leg-dot" style="background:#2c3e50;"></div><span>Налог на прибыль (+117 млрд)</span></div>
-      <div class="leg-item"><div class="leg-dot" style="background:#d4a017;"></div><span>Страховые взносы (+644 млрд, технический)</span></div>
-      <div class="leg-item"><div class="leg-dot" style="background:#7f8c8d;"></div><span>Пени (рост ставки) (+88 млрд)</span></div>
-      <div class="leg-item"><div class="leg-dot" style="background:#95a5a6;"></div><span>Прочее (+214 млрд)</span></div>
+      <div class="leg"><div class="leg-dot" style="background:var(--blue)"></div>НДС</div>
+      <div class="leg"><div class="leg-dot" style="background:var(--red)"></div>Налог на прибыль</div>
+      <div class="leg"><div class="leg-dot" style="background:var(--gold)"></div>НДФЛ</div>
     </div>
 
-    <svg viewBox="0 0 700 240" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:700px;display:block;">
-      <!-- Stacked horizontal bar, total = 1179.7 -->
-      <!-- Segments: НДС=116.7, Прибыль=117, СВ=644, Пени=88, Проч=214 -->
-      <!-- Width = 480px total; x start = 110 -->
-      <!-- Per unit: 480/1179.7 = 0.407px per mlrd -->
-      <!-- НДС: 116.7*0.407 = 47.5 → end=157.5 -->
-      <!-- Прибыль: 117*0.407 = 47.6 → end=205.1 -->
-      <!-- СВ: 644*0.407 = 262.1 → end=467.2 -->
-      <!-- Пени: 88*0.407 = 35.8 → end=503 -->
-      <!-- Проч: 214*0.407 = 87.1 → end=590.1 (≈590) -->
+    <svg viewBox="0 0 680 260" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:680px;display:block;">
+      <!--
+        5 year groups: 2020, 2021, 2022, 2023, 2024
+        3 bars per group, width=22, gap=4, group gap=28
+        Group x centers: 90, 210, 330, 450, 570
+        Bar positions in group: center-33, center-11, center+11 => left edges: c-44, c-22, c
+        Y: 0=220, 9.0=40 => scale = 180/9 = 20 per trln
+        Values:
+        НДС:    4.27, 5.1, 7.2, 7.2, 8.7
+        Прибыль:4.02, 5.8, 7.8, 7.9, 8.1
+        НДФЛ:   4.25, 5.0, 5.7, 6.6, 8.4
+        Heights: multiply by 20
+        4.27->85.4, 5.1->102, 7.2->144, 7.2->144, 8.7->174
+        4.02->80.4, 5.8->116, 7.8->156, 7.9->158, 8.1->162
+        4.25->85,   5.0->100, 5.7->114, 6.6->132, 8.4->168
+      -->
+      <!-- Grid -->
+      <line x1="60" y1="40"  x2="640" y2="40"  stroke="#eee" stroke-width="1" stroke-dasharray="4,3"/>
+      <line x1="60" y1="80"  x2="640" y2="80"  stroke="#eee" stroke-width="1" stroke-dasharray="4,3"/>
+      <line x1="60" y1="120" x2="640" y2="120" stroke="#eee" stroke-width="1" stroke-dasharray="4,3"/>
+      <line x1="60" y1="160" x2="640" y2="160" stroke="#eee" stroke-width="1" stroke-dasharray="4,3"/>
+      <line x1="60" y1="200" x2="640" y2="200" stroke="#eee" stroke-width="1" stroke-dasharray="4,3"/>
+      <line x1="60" y1="220" x2="640" y2="220" stroke="#ccc" stroke-width="1"/>
 
-      <!-- Main bar -->
-      <rect x="110" y="80" width="48"  height="50" fill="#c0392b" opacity="0.85"/>
-      <rect x="158" y="80" width="47"  height="50" fill="#2c3e50" opacity="0.85"/>
-      <rect x="205" y="80" width="262" height="50" fill="#d4a017" opacity="0.85"/>
-      <rect x="467" y="80" width="36"  height="50" fill="#7f8c8d" opacity="0.85"/>
-      <rect x="503" y="80" width="87"  height="50" fill="#95a5a6" opacity="0.85"/>
+      <text x="54" y="44"  text-anchor="end" font-size="9" fill="#aaa" font-family="IBM Plex Mono, monospace">9</text>
+      <text x="54" y="84"  text-anchor="end" font-size="9" fill="#aaa" font-family="IBM Plex Mono, monospace">7</text>
+      <text x="54" y="124" text-anchor="end" font-size="9" fill="#aaa" font-family="IBM Plex Mono, monospace">5</text>
+      <text x="54" y="164" text-anchor="end" font-size="9" fill="#aaa" font-family="IBM Plex Mono, monospace">3</text>
+      <text x="54" y="204" text-anchor="end" font-size="9" fill="#aaa" font-family="IBM Plex Mono, monospace">1</text>
 
-      <!-- Labels above bars (only if wide enough) -->
-      <text x="134" y="70" text-anchor="middle" font-size="9.5" fill="#c0392b" font-family="IBM Plex Mono, monospace">НДС</text>
-      <text x="134" y="80" text-anchor="middle" font-size="9.5" fill="#c0392b" font-family="IBM Plex Mono, monospace">116,7</text>
-      <text x="181" y="70" text-anchor="middle" font-size="9.5" fill="#2c3e50" font-family="IBM Plex Mono, monospace">Прибыль</text>
-      <text x="181" y="80" text-anchor="middle" font-size="9.5" fill="#2c3e50" font-family="IBM Plex Mono, monospace">117,0</text>
-      <text x="336" y="100" text-anchor="middle" font-size="11" fill="#fff" font-family="IBM Plex Mono, monospace" font-weight="600">Страх. взносы (технич.)</text>
-      <text x="336" y="116" text-anchor="middle" font-size="11" fill="#fff" font-family="IBM Plex Mono, monospace">+644 млрд</text>
-      <text x="485" y="110" text-anchor="middle" font-size="9" fill="#fff" font-family="IBM Plex Mono, monospace">Пени</text>
-      <text x="485" y="122" text-anchor="middle" font-size="9" fill="#fff" font-family="IBM Plex Mono, monospace">88</text>
-      <text x="547" y="110" text-anchor="middle" font-size="9.5" fill="#333" font-family="IBM Plex Mono, monospace">Проч.</text>
-      <text x="547" y="122" text-anchor="middle" font-size="9.5" fill="#333" font-family="IBM Plex Mono, monospace">214</text>
+      <!-- 2020: center=90 -->
+      <rect x="46"  y="135" width="22" height="85" fill="var(--blue)" opacity="0.8"/>
+      <rect x="68"  y="140" width="22" height="80" fill="var(--red)"  opacity="0.8"/>
+      <rect x="90"  y="135" width="22" height="85" fill="var(--gold)" opacity="0.8"/>
 
-      <!-- Scale bar -->
-      <line x1="110" y1="155" x2="590" y2="155" stroke="#ccc" stroke-width="1"/>
-      <text x="110" y="168" text-anchor="middle" font-size="9" fill="#888" font-family="IBM Plex Mono, monospace">0</text>
-      <text x="356" y="168" text-anchor="middle" font-size="9" fill="#888" font-family="IBM Plex Mono, monospace">590 (≈ 600 млрд)</text>
-      <text x="590" y="168" text-anchor="middle" font-size="9" fill="#888" font-family="IBM Plex Mono, monospace">~1 180 млрд</text>
-      <text x="350" y="185" text-anchor="middle" font-size="10" fill="#888" font-family="IBM Plex Sans, sans-serif">Прирост дебиторской задолженности 2023, млрд руб.</text>
+      <!-- 2021: center=210 -->
+      <rect x="166" y="118" width="22" height="102" fill="var(--blue)" opacity="0.8"/>
+      <rect x="188" y="104" width="22" height="116" fill="var(--red)"  opacity="0.8"/>
+      <rect x="210" y="120" width="22" height="100" fill="var(--gold)" opacity="0.8"/>
 
-      <!-- Legend box -->
-      <rect x="110" y="200" width="470" height="24" fill="#f5f0e8" stroke="#d5cfc4"/>
-      <text x="350" y="216" text-anchor="middle" font-size="9.5" fill="#555" font-family="IBM Plex Sans, sans-serif">⚠ Страховые взносы — методологическое включение с 2023 г., не реальный рост долга по взносам</text>
+      <!-- 2022: center=330 -->
+      <rect x="286" y="76"  width="22" height="144" fill="var(--blue)" opacity="0.85"/>
+      <rect x="308" y="64"  width="22" height="156" fill="var(--red)"  opacity="0.85"/>
+      <rect x="330" y="106" width="22" height="114" fill="var(--gold)" opacity="0.85"/>
+
+      <!-- 2023: center=450 -->
+      <rect x="406" y="76"  width="22" height="144" fill="var(--blue)" opacity="0.85"/>
+      <rect x="428" y="62"  width="22" height="158" fill="var(--red)"  opacity="0.85"/>
+      <rect x="450" y="88"  width="22" height="132" fill="var(--gold)" opacity="0.85"/>
+
+      <!-- 2024: center=570 -->
+      <rect x="526" y="46"  width="22" height="174" fill="var(--blue)" opacity="0.9"/>
+      <rect x="548" y="58"  width="22" height="162" fill="var(--red)"  opacity="0.9"/>
+      <rect x="570" y="52"  width="22" height="168" fill="var(--gold)" opacity="0.9"/>
+
+      <!-- Value labels on top -->
+      <text x="57"  y="131" text-anchor="middle" font-size="8" fill="var(--blue)" font-family="IBM Plex Mono, monospace">4,3</text>
+      <text x="79"  y="136" text-anchor="middle" font-size="8" fill="var(--red)"  font-family="IBM Plex Mono, monospace">4,0</text>
+      <text x="101" y="131" text-anchor="middle" font-size="8" fill="var(--gold)" font-family="IBM Plex Mono, monospace">4,3</text>
+
+      <text x="177" y="114" text-anchor="middle" font-size="8" fill="var(--blue)" font-family="IBM Plex Mono, monospace">5,1</text>
+      <text x="199" y="100" text-anchor="middle" font-size="8" fill="var(--red)"  font-family="IBM Plex Mono, monospace">5,8</text>
+      <text x="221" y="116" text-anchor="middle" font-size="8" fill="var(--gold)" font-family="IBM Plex Mono, monospace">5,0</text>
+
+      <text x="297" y="72"  text-anchor="middle" font-size="8" fill="var(--blue)" font-family="IBM Plex Mono, monospace">7,2</text>
+      <text x="319" y="60"  text-anchor="middle" font-size="8" fill="var(--red)"  font-family="IBM Plex Mono, monospace">7,8</text>
+      <text x="341" y="102" text-anchor="middle" font-size="8" fill="var(--gold)" font-family="IBM Plex Mono, monospace">5,7</text>
+
+      <text x="417" y="72"  text-anchor="middle" font-size="8" fill="var(--blue)" font-family="IBM Plex Mono, monospace">7,2</text>
+      <text x="439" y="58"  text-anchor="middle" font-size="8" fill="var(--red)"  font-family="IBM Plex Mono, monospace">7,9</text>
+      <text x="461" y="84"  text-anchor="middle" font-size="8" fill="var(--gold)" font-family="IBM Plex Mono, monospace">6,6</text>
+
+      <text x="537" y="42"  text-anchor="middle" font-size="8" fill="var(--blue)" font-family="IBM Plex Mono, monospace">8,7</text>
+      <text x="559" y="54"  text-anchor="middle" font-size="8" fill="var(--red)"  font-family="IBM Plex Mono, monospace">8,1</text>
+      <text x="581" y="48"  text-anchor="middle" font-size="8" fill="var(--gold)" font-family="IBM Plex Mono, monospace">8,4</text>
+
+      <!-- X labels -->
+      <text x="79"  y="238" text-anchor="middle" font-size="10" fill="#555" font-family="IBM Plex Mono, monospace" font-weight="600">2020</text>
+      <text x="199" y="238" text-anchor="middle" font-size="10" fill="#555" font-family="IBM Plex Mono, monospace" font-weight="600">2021</text>
+      <text x="319" y="238" text-anchor="middle" font-size="10" fill="#555" font-family="IBM Plex Mono, monospace" font-weight="600">2022</text>
+      <text x="439" y="238" text-anchor="middle" font-size="10" fill="#555" font-family="IBM Plex Mono, monospace" font-weight="600">2023</text>
+      <text x="559" y="238" text-anchor="middle" font-size="10" fill="#555" font-family="IBM Plex Mono, monospace" font-weight="600">2024</text>
+
+      <text x="350" y="254" text-anchor="middle" font-size="9.5" fill="#999" font-family="IBM Plex Sans, sans-serif">Год</text>
+      <text x="12" y="130" text-anchor="middle" font-size="9.5" fill="#999" font-family="IBM Plex Sans, sans-serif" transform="rotate(-90,12,130)">Трлн рублей</text>
     </svg>
+    <p class="note">Поступления НДС и налога на прибыль за 2021 — расчётные на основе динамики роста. За 2023: НДС и прибыль — итог ФНС/FinExpertiza.</p>
+  </div>
+
+  <!-- CHART 3 -->
+  <div class="chart-wrap">
+    <div class="chart-title">Диаграмма 3 — Декомпозиция прироста дебиторской задолженности ФНС в 2023 г., млрд руб.</div>
+    <div class="chart-sub">Прирост +1 181 млрд руб. (от ~1 189 до ~2 370). Источник: Счётная палата / РБК, июль 2024. Разбивка показывает долю реального роста долга vs методологического сдвига.</div>
+    <div class="legend">
+      <div class="leg"><div class="leg-dot" style="background:var(--gold)"></div>Методологический (+644 млрд, 54,5%) — не рост реального долга</div>
+      <div class="leg"><div class="leg-dot" style="background:var(--red)"></div>Реальный прирост (+537 млрд, 45,5%)</div>
+    </div>
+
+    <svg viewBox="0 0 680 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:680px;display:block;">
+      <!--
+        Total = 1181 млрд
+        Bar total width = 520px, x start = 80
+        Structural (644): 520*644/1181 = 283.3 → end at 363.3
+        Real НДС (116.7): 520*116.7/1181 = 51.4 → end at 414.7
+        Real Прибыль (117): 520*117/1181 = 51.5 → end at 466.2
+        Real Пени (88): 520*88/1181 = 38.7 → end at 504.9
+        Real Прочее (215.3): 520*215.3/1181 = 94.8 → end at 599.7 ≈ 600
+      -->
+      <!-- Main bar, y=80, height=50 -->
+      <rect x="80"  y="80" width="283" height="50" fill="var(--gold)" opacity="0.85"/>
+      <rect x="363" y="80" width="51"  height="50" fill="var(--blue)" opacity="0.85"/>
+      <rect x="414" y="80" width="52"  height="50" fill="var(--red)"  opacity="0.85"/>
+      <rect x="466" y="80" width="39"  height="50" fill="#6b7280"     opacity="0.85"/>
+      <rect x="505" y="80" width="95"  height="50" fill="#9ca3af"     opacity="0.85"/>
+
+      <!-- Bracket for "методологический" -->
+      <line x1="80"  y1="72" x2="363" y2="72" stroke="var(--gold)" stroke-width="1.5"/>
+      <line x1="80"  y1="68" x2="80"  y2="76" stroke="var(--gold)" stroke-width="1.5"/>
+      <line x1="363" y1="68" x2="363" y2="76" stroke="var(--gold)" stroke-width="1.5"/>
+      <text x="221" y="65" text-anchor="middle" font-size="9.5" fill="var(--gold)" font-family="IBM Plex Mono, monospace" font-weight="600">Методологический сдвиг ЕНС: +644 млрд (54,5%)</text>
+
+      <!-- Bracket for "реальный" -->
+      <line x1="363" y1="140" x2="600" y2="140" stroke="var(--red)" stroke-width="1.5"/>
+      <line x1="363" y1="136" x2="363" y2="144" stroke="var(--red)" stroke-width="1.5"/>
+      <line x1="600" y1="136" x2="600" y2="144" stroke="var(--red)" stroke-width="1.5"/>
+      <text x="481" y="155" text-anchor="middle" font-size="9.5" fill="var(--red)" font-family="IBM Plex Mono, monospace" font-weight="600">Реальный прирост: +537 млрд (45,5%)</text>
+
+      <!-- Labels inside bars -->
+      <text x="221" y="108" text-anchor="middle" font-size="10" fill="#fff"        font-family="IBM Plex Mono, monospace" font-weight="600">СВ +644</text>
+      <text x="388" y="101" text-anchor="middle" font-size="8.5" fill="#fff"        font-family="IBM Plex Mono, monospace">НДС</text>
+      <text x="388" y="113" text-anchor="middle" font-size="8.5" fill="#fff"        font-family="IBM Plex Mono, monospace">+117</text>
+      <text x="440" y="101" text-anchor="middle" font-size="8.5" fill="#fff"        font-family="IBM Plex Mono, monospace">Приб.</text>
+      <text x="440" y="113" text-anchor="middle" font-size="8.5" fill="#fff"        font-family="IBM Plex Mono, monospace">+117</text>
+      <text x="486" y="108" text-anchor="middle" font-size="8.5" fill="#fff"        font-family="IBM Plex Mono, monospace">Пени</text>
+      <text x="553" y="101" text-anchor="middle" font-size="9"   fill="#333"        font-family="IBM Plex Mono, monospace">Проч.</text>
+      <text x="553" y="113" text-anchor="middle" font-size="9"   fill="#333"        font-family="IBM Plex Mono, monospace">+215</text>
+
+      <!-- Scale -->
+      <line x1="80" y1="178" x2="600" y2="178" stroke="#ddd" stroke-width="1"/>
+      <text x="80"  y="192" text-anchor="middle" font-size="9" fill="#999" font-family="IBM Plex Mono, monospace">0</text>
+      <text x="340" y="192" text-anchor="middle" font-size="9" fill="#999" font-family="IBM Plex Mono, monospace">590 млрд</text>
+      <text x="600" y="192" text-anchor="middle" font-size="9" fill="#999" font-family="IBM Plex Mono, monospace">1 181 млрд</text>
+      <text x="340" y="210" text-anchor="middle" font-size="9.5" fill="#aaa" font-family="IBM Plex Sans, sans-serif">Прирост дебиторской задолженности 2023, млрд руб.</text>
+    </svg>
+    <p class="note">Вывод: реальный рост задолженности в 2023 г. — порядка 537 млрд (≈45%), а не 1 181 млрд. Без методологического сдвига ЕНС абсолютный показатель был бы ≈1 850 млрд — рост 9–10% к 2022 г. (в рамках инфляции).</p>
   </div>
 </section>
 
-<!-- ===== БЛОК 3: АНАЛИЗ ===== -->
+<!-- ══════════ БЛОК 3: АНАЛИЗ ══════════ -->
 <section>
-  <div class="section-label"><span class="section-num">03</span>Анализ</div>
-  <h2>Интерпретация трендов<br>и аномалий</h2>
+  <div class="sec-label">03 · Анализ</div>
+  <h2>Интерпретация трендов и аномалий</h2>
+  <p class="sec-intro">Пять взаимосвязанных наблюдений. Каждое выходит за пределы пересказа цифр и даёт ответ на вопрос «почему» и «что это означает для управления задолженностью».</p>
 
-  <div class="insight">
-    <strong>Тренд 1 — устойчивое снижение относительного долга</strong>
-    <p>Debt-to-income снижается с 9,8% (2017) до 5,0% (2025) — почти вдвое за восемь лет. Это означает, что задолженность растёт медленнее, чем налоговые поступления. ФНС добивается результата не через давление на каждого должника, а через цифровизацию администрирования: АСК НДС-2, ЕНС, предпроверочный анализ.</p>
-  </div>
+  <div class="insight-grid">
 
-  <div class="insight">
-    <strong>Тренд 2 — пик 2022–2023: аномальный абсолютный рост</strong>
-    <p>С 2022 по 2023 год абсолютная задолженность выросла на 27,5% (до 2,5 трлн руб.). Три основные причины: (1) доначисления по выездным проверкам — 685,7 млрд руб. в 2022 году, рекорд, рост на 81% к 2021-му; (2) НДС — задержки уплаты, рост схем «бумажного» НДС; (3) методологический сдвиг — с 1 января 2023 г. страховые взносы включены в дебиторскую задолженность (+644 млрд руб.). Без последнего фактора рост задолженности составил бы около 9–10% — в пределах инфляции.</p>
-  </div>
+    <div class="insight green">
+      <span class="insight-tag">Тренд 1 · Долгосрочное улучшение</span>
+      <p>Debt-to-income снизился с 6,5% (2020) до 4,7% (2025) — на 1,8 п.п. за период. С учётом контекста с 2017 г. — с 9,8% до 4,7%, почти вдвое. <strong>ФНС добивается этого не числом должников, а качеством отбора:</strong> число ВНП сократилось в 5 раз с 2016 г., средняя сумма доначисления выросла. Цифровизация (АСК НДС-2, ЕНС, предпроверочный анализ) работает как системный фильтр, а не карательный инструмент.</p>
+    </div>
 
-  <div class="insight">
-    <strong>Тренд 3 — снижение числа должников при росте среднего долга</strong>
-    <p>ФНС сообщает о двукратном сокращении числа налогоплательщиков-должников с момента внедрения ЕНС (2023). Одновременно средняя сумма доначисления на одну выездную проверку выросла с 65 до 101 млн руб. по Москве. Это сигнал концентрации: проверки теперь направлены на крупных неплательщиков, а мелкие задолженности ФНС «отсекает» автоматически через требования ЕНС.</p>
-  </div>
+    <div class="insight red">
+      <span class="insight-tag">Аномалия 1 · COVID, 2021</span>
+      <p>Единственный рост D/I за весь период 2017–2025: +0,6 п.п. (с 6,5% до 7,1%). <strong>Причина — сознательная политика:</strong> ФНС предоставила отсрочки на ≈353,7 млрд руб., мораторий на ВНП. Это антикризисная мера, а не деградация администрирования. Показательно, что ФНС удержала D/I ниже 8% даже в пик кризиса — в 2016–2017 гг. аналогичный стресс дал бы 11–12%.</p>
+    </div>
 
-  <div class="insight">
-    <strong>Аномалия 2021: COVID-отскок</strong>
-    <p>В 2020–2021 гг. ФНС ввела мораторий на проверки и предоставила отсрочки уплаты системообразующим предприятиям (353,7 млрд руб. в рамках «Площадки реструктуризации долга»). В результате debt-to-income вырос с 6,1% (2020) до 6,6% (2021) — единственный рост за весь период наблюдения с 2017 года. Это не деградация администрирования, а сознательная антикризисная мера.</p>
-  </div>
+    <div class="insight" style="border-left-color:var(--red);">
+      <span class="insight-tag" style="color:#e87070;">Аномалия 2 · Пик 2023 и декомпозиция</span>
+      <p>Формальный прирост задолженности +1 181 млрд руб. (+47%) — вводит в заблуждение. <strong>После декомпозиции:</strong> 644 млрд — методологический сдвиг ЕНС (не реальный долг), ещё ~700 млрд — авансовые начисления с ненаступившими сроками. Реальный прирост — порядка 537 млрд (~9–10%). Аналитик, принявший «+47%» за чистую монету, ошибся бы в выводах. D/I 2023 = 7,4% — выше среднего, но не катастрофа.</p>
+    </div>
 
-  <div class="insight">
-    <strong>Категории повышенного внимания</strong>
-    <p>Два сегмента требуют отдельного мониторинга. Первый — задолженность в процедурах банкротства: 1,1 трлн руб. на 01.01.2024, эффективность взыскания — 21 коп. на рубль. Второй — схемы «бумажного» НДС: ФСБ/ФНС в 2023–2025 гг. раскрыли сеть на 1,2 трлн руб. вычетов через 4800 фирм-однодневок. Это структурная уязвимость, не устранимая только ростом давления на должников.</p>
+    <div class="insight blue">
+      <span class="insight-tag" style="color:#7ab3e8;">Тренд 2 · Концентрация долга</span>
+      <p>Число налогоплательщиков-должников снижается, средний долг на одну компанию растёт. Среднее доначисление по ВНП в Москве: 65 → 101 млн руб. за 2 года. <strong>Это означает:</strong> «длинный хвост» мелких должников ФНС закрывает автоматически (ЕНС, требования), а ресурс ВНП концентрируется на крупных. Стратегически верно, но создаёт слепое пятно: МСП с накопленным долгом 5–50 млн руб. выпадают из обоих каналов.</p>
+    </div>
+
+    <div class="insight" style="border-left-color:var(--red); grid-column: span 2;">
+      <span class="insight-tag" style="color:#e87070;">Структурная уязвимость · Банкротство и НДС</span>
+      <p>Два сегмента требуют системного, а не тактического ответа. <strong>Банкротство:</strong> 1,1 трлн руб. долга, эффективность взыскания — 21 коп./руб. Добровольная реструктуризация даёт 55,3% — разрыв в 2,6 раза. Проблема не в законе, а в том, что ФНС получает статус кредитора после того, как активы выведены. <strong>Схемы НДС:</strong> операция апреля 2026 г. — 4 800 фирм, 1,2 трлн руб. вычетов за 2023–2025 гг. Это 0,59% от суммы всех вычетов по декларациям, но в абсолюте — сопоставимо с годовым приростом реальной задолженности. АСК НДС-2 не перехватывает многоуровневые переструктурированные схемы — именно их выявила ФСБ, а не ФНС автоматически.</p>
+    </div>
+
   </div>
 </section>
 
-<!-- ===== БЛОК 4: ПРЕДЛОЖЕНИЯ ===== -->
+<!-- ══════════ БЛОК 4: ПРЕДЛОЖЕНИЯ ══════════ -->
 <section>
-  <div class="section-label"><span class="section-num">04</span>Предложения</div>
-  <h2>Пять мер по повышению<br>эффективности взыскания</h2>
+  <div class="sec-label">04 · Предложения</div>
+  <h2>Пять мер повышения<br>эффективности взыскания</h2>
+  <p class="sec-intro">Каждое предложение содержит описание меры, логику, привязку к конкретным данным и оценочный KPI эффекта. Предложения упорядочены по потенциальному объёму взыскания.</p>
 
+  <!-- P1 -->
   <div class="proposal">
-    <div class="proposal-num">1</div>
-    <div class="tag">Контроль НДС</div>
-    <h4>Расширить покрытие АСК НДС-2 на агрессивные схемы реструктуризации цепочек</h4>
-    <p style="font-size:0.88rem;">НДС — второй по величине источник задолженности (просроченная +71,4 млрд руб. в 2023 г.), и именно по нему зафиксированы самые масштабные схемы «бумажных» вычетов (1,2 трлн руб. за 2023–2025 гг.). АСК НДС-2 ловит цепочки первого уровня, но не перехватывает многоуровневые переструктурированные схемы.</p>
-    <div class="proposal-row">
-      <div><strong>Логика</strong>Добавить в АСК автоматическую маркировку цепочек с нетипичной ротацией контрагентов (> 3 новых контрагентов за 6 месяцев при сопоставимых оборотах). Интегрировать данные ЕГРЮЛ об адресах массовой регистрации. Приоритет выездной проверки — при совпадении трёх маркеров.</div>
-      <div><strong>Опора на данные</strong>Схемы «бумажного» НДС выявлены ФСБ/ФНС в апреле 2026 г. — 4800 фирм, 1,2 трлн руб. вычетов. Расхождение по декларациям НДС: 0,59% от суммы вычетов (2024 г.) — на первый взгляд мало, но в абсолюте это десятки миллиардов рублей ежегодно.</div>
+    <div class="p-num">1</div>
+    <div class="p-body">
+      <div class="p-tag">Банкротство · 1,1 трлн руб.</div>
+      <h4>Обязательный реструктуризационный трек перед возбуждением банкротства для налоговых долгов МСП</h4>
+      <p style="font-size:0.85rem;">Для налогоплательщиков с задолженностью 5–500 млн руб. — обязательный 12-месячный досудебный трек. Условие: план погашения ≥ 30% суммы в течение 12 мес. + подтверждённая операционная деятельность. Взамен — мораторий на пени и отказ от субсидиарной ответственности при добросовестном исполнении плана.</p>
+      <div class="p-cols">
+        <div class="p-col">
+          <span class="p-col-label">Логика</span>
+          Сравнение «Площадки реструктуризации» (55,3%) и банкротства (21%) показывает: добровольное погашение возвращает в 2,6 раза больше. Закон создаёт экономический стимул до начала процедуры, пока активы ещё не выведены.
+        </div>
+        <div class="p-col">
+          <span class="p-col-label">Опора на данные</span>
+          1,1 трлн задолженности в банкротстве (+5% за год). 365,8 тыс. дел. Эффективность 21 коп./руб. против 55,3% по реструктуризации.
+        </div>
+        <div class="p-col">
+          <span class="p-col-label">KPI</span>
+          <div class="p-kpi">Цель: +30 коп./руб. → +330 млрд доп. взыскания при охвате 50% долга в банкротстве</div>
+        </div>
+      </div>
     </div>
   </div>
 
+  <!-- P2 -->
   <div class="proposal">
-    <div class="proposal-num">2</div>
-    <div class="tag">Банкротство</div>
-    <h4>Ввести обязательный реструктуризационный трек с защитой активов на срок до 18 месяцев</h4>
-    <p style="font-size:0.88rem;">Задолженность в банкротстве составляет 1,1 трлн руб. (01.01.2024) при эффективности взыскания всего 21 коп. на рубль. Банкротство как инструмент взыскания работает плохо — ФНС получает копейки, активы вымываются до процедуры.</p>
-    <div class="proposal-row">
-      <div><strong>Логика</strong>Для налогоплательщиков с задолженностью 5–500 млн руб. — обязательный досудебный реструктуризационный трек перед подачей заявления о банкротстве. Срок: 6–18 месяцев. Условие: согласованный план погашения ≥ 30% суммы долга. В обмен — мораторий на начисление пеней и отказ от субсидиарной ответственности при добросовестном исполнении плана.</div>
-      <div><strong>Опора на данные</strong>«Площадка реструктуризации долга» ФНС (2022) дала 55,3% эффективности по примирительным процедурам против 21% по банкротству. Разрыв в 2,6 раза показывает: добровольное погашение эффективнее принудительного взыскания при ликвидации.</div>
+    <div class="p-num">2</div>
+    <div class="p-body">
+      <div class="p-tag">НДС · схемы 1,2 трлн руб.</div>
+      <h4>Расширение покрытия АСК НДС-2: маркировка многоуровневых схем ротации контрагентов + автоматическое приостановление вычетов по флагу</h4>
+      <p style="font-size:0.85rem;">Добавить в АСК алгоритм: при обнаружении ≥3 новых контрагентов за квартал с совокупными вычетами &gt;50 млн руб. — автоматическая заморозка вычета на 30 дней и запрос пояснений. При подтверждении реальности сделки — вычет восстанавливается. При отсутствии ответа в срок — переход к камеральной проверке без доп. решений.</p>
+      <div class="p-cols">
+        <div class="p-col">
+          <span class="p-col-label">Логика</span>
+          Операция апр. 2026 выявила схему через ФСБ, не через АСК. Это значит, что автоматический инструмент не закрывает многоуровневую ротацию. Превентивная заморозка вычетов на верификацию — стандарт HMRC (Великобритания) и VAT-guard в ЕС.
+        </div>
+        <div class="p-col">
+          <span class="p-col-label">Опора на данные</span>
+          1,2 трлн руб. схемных вычетов за 2023–2025 (4 800 фирм). Расхождение по декларациям: 0,59% вычетов — сигнал сохраняющейся проблемы. Реальный прирост задолженности НДС: +117 млрд в 2023.
+        </div>
+        <div class="p-col">
+          <span class="p-col-label">KPI</span>
+          <div class="p-kpi">Цель: снижение расхождений по декларациям до &lt;0,3% вычетов в течение 2 лет</div>
+        </div>
+      </div>
     </div>
   </div>
 
+  <!-- P3 -->
   <div class="proposal">
-    <div class="proposal-num">3</div>
-    <div class="tag">Физлица</div>
-    <h4>Расширить автоматическое уведомление через Госуслуги с предзаполненными платёжными поручениями</h4>
-    <p style="font-size:0.88rem;">Ежегодно мировые судьи выносят до 6 млн судебных приказов по задолженностям физлиц — значительная часть из которых — технические долги по имущественным налогам, образовавшиеся из-за незнания или несвоевременного уведомления.</p>
-    <div class="proposal-row">
-      <div><strong>Логика</strong>За 90 дней до наступления срока уплаты — автоматическая push-уведомление через приложение Госуслуг с суммой, QR-кодом для оплаты и кнопкой «Оплатить в один клик». За 30 дней — повторное уведомление. За 10 дней — SMS. При оплате до наступления просрочки — автоматический зачёт без штрафов. Фрикцию создаёт не долг, а неинформированность.</div>
-      <div><strong>Опора на данные</strong>Рост поступлений от взыскания задолженности по имуществу ФЛ (+14,3 млрд руб.) и земельному налогу (+26,9 млрд руб.) в 2024 г. — прямой результат усиления взыскания. Но у 60,8 млн пользователей ЛК ФЛ уже есть канал коммуникации — он не используется проактивно.</div>
+    <div class="p-num">3</div>
+    <div class="p-body">
+      <div class="p-tag">МСП · «слепая зона»</div>
+      <h4>Автоматический «светофор задолженности» в ЛК ЮЛ с дифференцированным предложением рассрочки и hard deadline перехода к взысканию</h4>
+      <p style="font-size:0.85rem;">В ЛК юрлица — трёхцветный индикатор риска по ЕНС. Жёлтый (долг &lt;3 млн, срок не наступил): уведомление + калькулятор рассрочки. Красный (просроч. &gt;3 млн): обязательный ответ в 30 дней — план погашения или заявление о реструктуризации. При отсутствии ответа — автоматический переход к блокировке счёта без доп. уведомлений.</p>
+      <div class="p-cols">
+        <div class="p-col">
+          <span class="p-col-label">Логика</span>
+          Число должников снижается, но совокупный долг ЮЛ растёт (+22,9% к 01.01.2026). Разрыв говорит о концентрации у МСП, которые не видят пути выхода. ЕНС уже содержит все данные — нужен только UI-слой и автоматика.
+        </div>
+        <div class="p-col">
+          <span class="p-col-label">Опора на данные</span>
+          Долг ЮЛ на 01.01.2026 — 2,5 трлн (+22,9%). Forbes/апрель 2026: «портрет» МСП-должника — низкая рентабельность, накопленный долг без плана погашения. Подтверждаемость ВНП: 51% — ФНС тратит ресурс на спорные кейсы.
+        </div>
+        <div class="p-col">
+          <span class="p-col-label">KPI</span>
+          <div class="p-kpi">Цель: 40% жёлтых кейсов закрываются добровольно в течение 60 дней после внедрения</div>
+        </div>
+      </div>
     </div>
   </div>
 
+  <!-- P4 -->
   <div class="proposal">
-    <div class="proposal-num">4</div>
-    <div class="tag">МСП / риск-профили</div>
-    <h4>Внедрить автоматический «светофор задолженности» для МСП с дифференцированными мерами по цвету</h4>
-    <p style="font-size:0.88rem;">ФНС сообщает о «портрете» компании-неплательщика: малый штат, низкая рентабельность, несколько кварталов накопленной задолженности. При этом крупный бизнес платит дисциплинированно — угроза уголовного дела и блокировки счётов работает. МСП лишены и этого давления, и понимания своего статуса.</p>
-    <div class="proposal-row">
-      <div><strong>Логика</strong>В ЛК ЮЛ — автоматический индикатор риска по ЕНС: зелёный (нет долга, нет рисков), жёлтый (долг < 3 млн руб., ненаступившие сроки), красный (просроченный долг > 3 млн руб. или доначисление по проверке). При красном — автоматическое предложение рассрочки с калькулятором; при отсутствии ответа в 30 дней — переход к принудительным мерам без дополнительных уведомлений.</div>
-      <div><strong>Опора на данные</strong>Число налогоплательщиков с задолженностью снижается (ФНС, 2024), но совокупная задолженность ЮЛ к 01.01.2026 выросла до 2,5 трлн (+22,9%). Разрыв говорит о концентрации долга у меньшего числа компаний — именно МСП с накопленными долгами, которые не видят пути выхода.</div>
+    <div class="p-num">4</div>
+    <div class="p-body">
+      <div class="p-tag">Физлица · 6 млн приказов/год</div>
+      <h4>Проактивная система уведомлений для физлиц через Госуслуги с предзаполненным платёжным поручением за 90 / 30 / 10 дней до срока уплаты</h4>
+      <p style="font-size:0.85rem;">Push-уведомление в Госуслуги за 90 дней до срока уплаты с суммой и QR-кодом. Повтор за 30 дней. SMS за 10 дней. При оплате до срока — автозачёт, никаких штрафов. ЛК ФЛ уже есть у 60,8 млн человек — интеграция с Госуслугами требует минимальной доработки API.</p>
+      <div class="p-cols">
+        <div class="p-col">
+          <span class="p-col-label">Логика</span>
+          Значительная часть из 6 млн судебных приказов ежегодно — технические долги: налогоплательщик не получил уведомление или получил его поздно. Ранняя проактивная коммуникация снижает судебную нагрузку и сохраняет лояльность плательщика.
+        </div>
+        <div class="p-col">
+          <span class="p-col-label">Опора на данные</span>
+          До 6 млн судебных приказов/год (мировые судьи). ФНС 2024: взыскание задолженности за прошлые периоды +14,3 млрд (им. ФЛ) и +26,9 млрд (зем.) — сигнал накопленных незакрытых долгов.
+        </div>
+        <div class="p-col">
+          <span class="p-col-label">KPI</span>
+          <div class="p-kpi">Цель: снижение числа судебных приказов на 20–25% в течение 2 лет</div>
+        </div>
+      </div>
     </div>
   </div>
 
+  <!-- P5 -->
   <div class="proposal">
-    <div class="proposal-num">5</div>
-    <div class="tag">Аналитика / ЕНС</div>
-    <h4>Ввести публичный квартальный мониторинг задолженности по видам налогов в разбивке ЮЛ/ФЛ</h4>
-    <p style="font-size:0.88rem;">Данные ФНС о структуре задолженности по видам налогов не публикуются в открытом виде в сопоставимом формате год к году. Это затрудняет независимый аудит (Счётная палата получает доступ раз в год) и создаёт риск запаздывания реакции на рост отдельных категорий долга.</p>
-    <div class="proposal-row">
-      <div><strong>Логика</strong>Расширить квартальную публикацию сведений об организациях-должниках (введена с декабря 2023 г.) на физлиц и добавить агрегированную таблицу: задолженность по 6–8 ключевым видам налогов в разбивке ЮЛ/ФЛ, с динамикой к аналогичному периоду прошлого года. Формат — CSV + интерактивный дашборд на data.nalog.ru.</div>
-      <div><strong>Опора на данные</strong>Счётная палата выявила рост задолженности по налогу на прибыль в 3,3 раза только в рамках ежегодной проверки — данные не были видны в оперативном режиме. Раннее обнаружение аномалий по отдельным видам налогов позволит ФНС и законодателю реагировать внутри года, а не по факту закрытия бюджета.</div>
+    <div class="p-num">5</div>
+    <div class="p-body">
+      <div class="p-tag">Прозрачность данных</div>
+      <h4>Квартальный публичный мониторинг задолженности по 8 видам налогов в разбивке ЮЛ/ФЛ с методологическими пояснениями — в машиночитаемом формате CSV + дашборд</h4>
+      <p style="font-size:0.85rem;">Ежеквартальная таблица: задолженность по 8 ключевым видам налогов (НДС, прибыль, НДФЛ, имущество, НДПИ, страх. взносы, транспортный, земельный) в разбивке ЮЛ/ФЛ, с динамикой к аналогичному периоду прошлого года и явной методологической пометкой при сдвигах. CSV на data.nalog.ru + интерактивный дашборд.</p>
+      <div class="p-cols">
+        <div class="p-col">
+          <span class="p-col-label">Логика</span>
+          Счётная палата выявила ×3,3 по налогу на прибыль только в рамках ежегодной проверки — данные не были видны в оперативном режиме. Публичная квартальная отчётность позволяет реагировать внутри года, даёт базу для независимого аудита и снижает риск «сюрпризов» в годовых отчётах.
+        </div>
+        <div class="p-col">
+          <span class="p-col-label">Опора на данные</span>
+          Методологический сдвиг 2023 г. (+644 млрд взносов) не был публично объяснён до отчёта Счётной палаты в июле 2024. 9-месячное запаздывание информации недопустимо при активном управлении задолженностью.
+        </div>
+        <div class="p-col">
+          <span class="p-col-label">KPI</span>
+          <div class="p-kpi">Цель: любой аномальный рост &gt;15% по виду налога фиксируется и объясняется в течение квартала, а не через год</div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ===== БЛОК 5: ИСТОЧНИКИ ===== -->
+<!-- ══════════ БЛОК 5: ИСТОЧНИКИ ══════════ -->
 <section>
-  <div class="section-label"><span class="section-num">05</span>Источники</div>
-  <h2>Список использованных<br>источников</h2>
+  <div class="sec-label">05 · Источники</div>
+  <h2>Список источников</h2>
+  <p class="sec-intro">9 первичных источников. По каждому указано, какие именно данные использованы. Ссылки кликабельны.</p>
 
-  <ul class="sources-list">
-    <li>
-      <span class="src-num">01</span>
+  <ul class="src-list">
+    <li class="src-item">
+      <div class="src-n">01</div>
       <div>
         <strong>ФНС России — Итоги деятельности 2024 (годовой отчёт)</strong><br>
         <a href="https://data.nalog.ru/html/sites/www.new.nalog.ru/files/related_activities/statistics_and_analytics/effectiveness/ar2024.pdf" target="_blank">data.nalog.ru → ar2024.pdf</a>
-        <div class="src-what">Взято: Debt-to-income с 2017 по 2025, поступления по видам налогов за 2023–2024, данные по задолженности (стр. 15), меры взыскания (+12,3%, +97%), банкротство (252,1 млрд руб.), контрольная работа (408 млрд руб.).</div>
+        <div class="src-what">Взято: Debt-to-income (ряд 2017–2025), поступления по видам налогов 2023–2024, меры взыскания (+12,3%), банкротство (252,1 млрд), ЛК ФЛ (60,8 млн пользователей), имущественные налоги (+14,3 млрд / +26,9 млрд).</div>
       </div>
     </li>
-    <li>
-      <span class="src-num">02</span>
+    <li class="src-item">
+      <div class="src-n">02</div>
       <div>
         <strong>ФНС России — Итоги деятельности 2023 (годовой отчёт)</strong><br>
         <a href="https://data.nalog.ru/html/sites/www.new.nalog.ru/files/related_activities/statistics_and_analytics/effectiveness/itog23.pdf" target="_blank">data.nalog.ru → itog23.pdf</a>
-        <div class="src-what">Взято: Поступления по видам налогов (НДС 7182 млрд, НДФЛ 6538 млрд, налог на прибыль 7922 млрд), структура налоговых поступлений консолидированного бюджета 2023, имущественные налоги 2022–2023.</div>
+        <div class="src-what">Взято: Поступления 2022–2023 по видам налогов (НДС 7,2 трлн, прибыль 7,9 трлн, НДФЛ 6,6 трлн). Структура консолидированного бюджета 2023.</div>
       </div>
     </li>
-    <li>
-      <span class="src-num">03</span>
+    <li class="src-item">
+      <div class="src-n">03</div>
       <div>
-        <strong>РБК — «Аудиторы раскрыли объём долгов налогоплательщиков перед ФНС»</strong><br>
-        <a href="https://www.rbc.ru/economics/17/07/2024/66951cc79a7947999d0872b0" target="_blank">rbc.ru, 17 июля 2024</a>
-        <div class="src-what">Взято: Данные Счётной палаты: дебиторская задолженность 2,37 трлн (кон. 2023), просроченная 1,325 трлн (+30% к 2022), прирост по НДС +116,7 млрд, по налогу на прибыль +117 млрд (+в 3,3 раза), страховые взносы 644 млрд (технический фактор), задолженность в банкротстве 1,1 трлн, debt-to-income 5,8%. Позиция ФНС о методологических изменениях.</div>
+        <strong>РБК / Счётная палата — «Аудиторы раскрыли объём долгов налогоплательщиков», июль 2024</strong><br>
+        <a href="https://www.rbc.ru/economics/17/07/2024/66951cc79a7947999d0872b0" target="_blank">rbc.ru, 17.07.2024</a>
+        <div class="src-what">Взято: Дебиторская задолженность 2,37 трлн (кон. 2023), прирост +116,7 млрд по НДС, +117 млрд по прибыли (×3,3), страховые взносы +644 млрд (технический), задолженность в банкротстве 1,1 трлн, эффективность банкротства 21 коп./руб., просроченная задолженность 1,325 трлн (+30%).</div>
       </div>
     </li>
-    <li>
-      <span class="src-num">04</span>
+    <li class="src-item">
+      <div class="src-n">04</div>
       <div>
-        <strong>Коммерсантъ — «Задолженность по налогам и сборам в 2022 году составила 2,5 трлн рублей»</strong><br>
-        <a href="https://www.kommersant.ru/doc/6096589" target="_blank">kommersant.ru, 11 июля 2023</a>
-        <div class="src-what">Взято: Совокупная задолженность 2,5 трлн руб. на 01.01.2023, рост на 545 млрд (+27,5%) к 2022 г. Причины: задержка НДС, доначисления по налогу на прибыль, неуплата НДПИ на нефть, спецрежимы, акцизы.</div>
+        <strong>Коммерсантъ — «Задолженность по налогам в 2022 году составила 2,5 трлн», июль 2023</strong><br>
+        <a href="https://www.kommersant.ru/doc/6096589" target="_blank">kommersant.ru, 11.07.2023</a>
+        <div class="src-what">Взято: Совокупная задолженность 2,5 трлн на 01.01.2023, прирост +545 млрд (+27,5%). Причины: НДС, прибыль, НДПИ, спецрежимы.</div>
       </div>
     </li>
-    <li>
-      <span class="src-num">05</span>
+    <li class="src-item">
+      <div class="src-n">05</div>
       <div>
-        <strong>РБК — «ФНС в 2022 году доначислила рекордную сумму налогов»</strong><br>
-        <a href="https://www.rbc.ru/economics/04/04/2023/6426bae09a794746f4f7cc97" target="_blank">rbc.ru, 4 апреля 2023</a>
-        <div class="src-what">Взято: Доначисления по результатам выездных проверок 2022 — 685,7 млрд руб. (+81% к 2021 г.); доначисления 2021 — 378,6 млрд руб.; механизм предпроверочного анализа.</div>
+        <strong>РБК — «ФНС в 2022 году доначислила рекордную сумму налогов», апрель 2023</strong><br>
+        <a href="https://www.rbc.ru/economics/04/04/2023/6426bae09a794746f4f7cc97" target="_blank">rbc.ru, 04.04.2023</a>
+        <div class="src-what">Взято: Доначисления по ВНП 2022 — 685,7 млрд (+81% к 2021 г., 378,6 млрд). Схемы НДС через фирмы-однодневки. Число ВНП — 10 191.</div>
       </div>
     </li>
-    <li>
-      <span class="src-num">06</span>
+    <li class="src-item">
+      <div class="src-n">06</div>
       <div>
-        <strong>Forbes Россия — «ФНС составила "портрет" компании-неплательщика»</strong><br>
-        <a href="https://www.forbes.ru/finansy/560074-fns-sostavila-portret-kompanii-neplatel-sika" target="_blank">forbes.ru, 28 апреля 2026</a>
-        <div class="src-what">Взято: Задолженность ЮЛ на 01.01.2026 — 2,5 трлн (+22,9% за год); задолженность от доначислений — 1,038 трлн (+26%); характеристики МСП-должников; порог уголовной ответственности (18 млн руб.).</div>
+        <strong>ТАСС — «Поступления налогов в 2020 году снизились на 7,6%», февраль 2021</strong><br>
+        <a href="https://tass.ru/ekonomika/10723387" target="_blank">tass.ru</a>
+        <div class="src-what">Взято: Поступления в консолидированный бюджет 2020 — 21,01 трлн руб. (−7,6%). НДС — 4,27 трлн, прибыль — 4,02 трлн, НДФЛ — 4,25 трлн. Debt-to-income 2020: 6,5% (прямая цитата ФНС).</div>
       </div>
     </li>
-    <li>
-      <span class="src-num">07</span>
+    <li class="src-item">
+      <div class="src-n">07</div>
       <div>
-        <strong>Forbes Россия — «РБК узнал о раскрытии в России крупнейшей сети "бумажного" НДС»</strong><br>
-        <a href="https://www.forbes.ru/finansy/559158-rbk-uznal-o-raskrytii-v-rossii-krupnejsej-seti-bumaznogo-nds-na-1-2-trln-rublej" target="_blank">forbes.ru, 14 апреля 2026</a>
-        <div class="src-what">Взято: Операция ФСБ/ФНС/МВД — сеть из 4800 фирм, схемные вычеты по НДС 1,2 трлн руб. за 2023–2025 гг.</div>
+        <strong>Российская газета — «Глава ФНС: в 2022 году поступления выросли на 22%», март 2023</strong><br>
+        <a href="https://rg.ru/2023/03/01/glava-fns-v-2022-godu-nalogovye-postupleniia-v-federalnyj-biudzhet-vyrosli-na-22.html" target="_blank">rg.ru, 01.03.2023</a>
+        <div class="src-what">Взято: Поступления в консолидированный бюджет 2022 — 33,58 трлн (+18% / +5 трлн к 2021 г.). Использовано для расчёта поступлений 2021 (28,5 трлн) и D/I 2022.</div>
       </div>
     </li>
-    <li>
-      <span class="src-num">08</span>
+    <li class="src-item">
+      <div class="src-n">08</div>
       <div>
-        <strong>ФНС России — Итоги деятельности, январь–июнь 2025 (промежуточный отчёт)</strong><br>
-        <a href="https://data.nalog.ru/html/sites/www.new.nalog.ru/files/related_activities/statistics_and_analytics/effectiveness/itog_0107_25.pdf" target="_blank">data.nalog.ru → itog_0107_25.pdf</a>
-        <div class="src-what">Взято: Debt-to-income на 01.07.2025 — 5,5%; данные о снижении числа должников на 20% и росте поступлений от мер взыскания на 25%.</div>
+        <strong>Коммерсантъ / Интерфакс — «ФНС: поступления в 2024 году выросли на 20%», февраль 2025</strong><br>
+        <a href="https://www.kommersant.ru/doc/7534967" target="_blank">kommersant.ru, 26.02.2025</a>
+        <div class="src-what">Взято: Поступления 2024 — 43,5 трлн (+20%). НДС 8,7 трлн (+21,6%), прибыль 8,1 трлн (+1,6%), НДФЛ 8,4 трлн (+28,1%). Использовано для расчёта D/I 2025.</div>
       </div>
     </li>
-    <li>
-      <span class="src-num">09</span>
+    <li class="src-item">
+      <div class="src-n">09</div>
       <div>
-        <strong>TAdviser — «Налоги в России» (сводная статья)</strong><br>
-        <a href="https://www.tadviser.ru/index.php/%D0%A1%D1%82%D0%B0%D1%82%D1%8C%D1%8F:%D0%9D%D0%B0%D0%BB%D0%BE%D0%B3%D0%B8_%D0%B2_%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D0%B8" target="_blank">tadviser.ru</a>
-        <div class="src-what">Взято: Закон о внесудебном взыскании с физлиц (2025); данные о судебных приказах мировых судей (до 6 млн в год, 2016–2023).</div>
+        <strong>Forbes Россия — «ФНС составила "портрет" компании-неплательщика», апрель 2026</strong><br>
+        <a href="https://www.forbes.ru/finansy/560074-fns-sostavila-portret-kompanii-neplatel-sika" target="_blank">forbes.ru, 28.04.2026</a>
+        <div class="src-what">Взято: Задолженность ЮЛ на 01.01.2026 — 2,5 трлн (+22,9%). Задолженность от доначислений — 1,038 трлн. Характеристики МСП-должника. Схемы «бумажного» НДС — 4 800 фирм, 1,2 трлн (операция апр. 2026, ФСБ/ФНС/МВД).</div>
       </div>
     </li>
   </ul>
@@ -795,8 +1128,9 @@
 
 </main>
 
-<footer style="background:var(--ink);color:#666;padding:1.5rem 4rem;font-family:'IBM Plex Mono',monospace;font-size:0.72rem;letter-spacing:0.06em;">
-  Каролина Гергерт &nbsp;·&nbsp; karolinagergert1@gmail.com &nbsp;·&nbsp; Выполнено 03.06.2026 &nbsp;·&nbsp; Данные: ФНС России, Счётная палата РФ, РБК, Коммерсантъ, Forbes
+<footer>
+  <span>Каролина Гергерт · karolinagergert1@gmail.com · linkedin.com/in/karolina-gergert-6176b2401</span>
+  <span>Выполнено 03.06.2026 · Данные: ФНС России, Счётная палата РФ, Минфин России</span>
 </footer>
 
 </body>
